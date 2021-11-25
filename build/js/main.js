@@ -2175,6 +2175,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
@@ -2272,7 +2273,22 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
 
+  created() {
+    this.populateDefault();
+  },
+
   methods: {
+    populateDefault() {
+      let birthday = this.$store.state.user.dateofbirth;
+
+      if (birthday) {
+        let parsed = birthday.split('-');
+        this.selected_month = parsed[1][0] == 0 ? parsed[1][1] : parsed[1];
+        this.selected_day = parsed[2][0] == 0 ? parsed[2][1] : parsed[2];
+        this.selected_year = parsed[0];
+      }
+    },
+
     validate() {
       if (!this.selected_year) {
         this.error_year = 'Year is required.';
@@ -2348,10 +2364,10 @@ __webpack_require__.r(__webpack_exports__);
 
     proceed(data) {
       _api_service__WEBPACK_IMPORTED_MODULE_0__["default"].instance.put(`/v1/fake-profile-update/${this.$store.state.username}/`, {
-        dateofbirth: `${this.selected_year}-${this.selected_month}-${this.selected_day}`,
+        dateofbirth: `${data.selected_year}-${data.selected_month}-${data.selected_day}`,
         cancer: false
       }).then(response => {
-        this.$store.commit('SET_SCREEN', this.next);
+        this.$store.commit('SET_SCREEN', 'contact-number-male');
         this.$store.commit('SET_USER', response.data);
       });
     }
@@ -2453,6 +2469,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _api_service__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../api.service */ "./src/js/api.service.js");
+/* harmony import */ var _active_screen_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../active-screen.service */ "./src/js/active-screen.service.js");
 //
 //
 //
@@ -2474,8 +2491,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  props: ['next', 'previous'],
+  mixins: [_active_screen_service__WEBPACK_IMPORTED_MODULE_1__["default"]],
+  props: ['next', 'previous', 'title', 'question'],
 
   data() {
     return {
@@ -2486,12 +2505,35 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     proceed() {
       // this.$store.commit('SET_SCREEN', this.next);
-      this.$emit('store'); // $http.instance.put(`/v1/fake-profile-update/${this.$store.state.username}/`, {
+      // $http.instance.put(`/v1/fake-profile-update/${this.$store.state.username}/`, {
       //     dateofbirth: `${this.selected_year}-${this.selected_month}-${this.selected_day}`
       // }).then( response => {
       //     this.$store.commit('SET_SCREEN', this.next);
       //     this.$store.commit('SET_USER', response.data);
       // })
+      let user = this.$store.state.user;
+      _api_service__WEBPACK_IMPORTED_MODULE_0__["default"].instance.post(`/v2/patient-register/`, {
+        dateofbirth: `${this.selected_year}-${this.selected_month}-${this.selected_day}`,
+        MPA: user.MPA,
+        cancer: user.cancer,
+        dateofbirth: user.dateofbirth,
+        extra_slug: user.slug,
+        gender: user.gender,
+        name: user.name,
+        patientprofile: {
+          email: user.user_fake_profile,
+          password: '12345678'
+        },
+        phone: this.contact_number,
+        state: null
+      }).then(response => {
+        localStorage.removeItem('vuex');
+        localStorage.setItem('token', response.data.access);
+        localStorage.setItem('refresh', response.data.refresh);
+        setTimeout(() => {
+          window.location.href = user.gender == 'male' ? '/recommendation/mens' : 'recommendation/women';
+        }, 1000);
+      });
     },
 
     onlyNumber($event) {
@@ -2523,21 +2565,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   methods: {
-    proceed() {
-      _api_service__WEBPACK_IMPORTED_MODULE_0__["default"].instance.put(`/v1/fake-profile-update/${this.$store.state.username}/`, {
-        dateofbirth: `${this.selected_year}-${this.selected_month}-${this.selected_day}`
-      }).then(response => {
-        this.$store.commit('SET_USER', response.data);
-        setTimeout(() => {
-          window.location.href = '/';
-        }, 1000);
-      });
-    },
-
     onlyNumber($event) {
       if (!/\d/.test($event.key)) return $event.preventDefault();
     }
@@ -2598,7 +2628,7 @@ __webpack_require__.r(__webpack_exports__);
   data() {
     return {
       choices: [],
-      selection: []
+      selected: []
     };
   },
 
@@ -2606,21 +2636,49 @@ __webpack_require__.r(__webpack_exports__);
     this.getCMSContent();
   },
 
+  computed: {
+    back() {
+      let back = 'thyroid-imbalance';
+
+      if (this.$store.state.local['thyroid-imbalance']) {
+        if (this.$store.state.local['thyroid-imbalance'].length) {
+          back = 'thyroid-imbalance-rating';
+        }
+      }
+
+      return back;
+    }
+
+  },
   methods: {
     proceed(data) {
-      let parsed = this.selection.map(item => {
+      let parsed = this.selected.map(item => {
         return {
           goals_assig: item.id
         };
       });
       _api_service__WEBPACK_IMPORTED_MODULE_0__["default"].instance.post(`/v1/fake-profile-goals/${this.$store.state.username}/`, parsed).then(response => {
         this.$store.commit('SET_SCREEN', 'cancer');
+        this.updateLocalData(this.selected);
       });
+    },
+
+    populateLocalData() {
+      if (this.$store.state.local['goals']) {
+        this.selected = this.$store.state.local['goals'];
+      }
+    },
+
+    updateLocalData(data) {
+      let localUser = this.$store.state.local;
+      localUser['goals'] = data;
+      this.$store.commit('SET_LOCAL_USER', localUser);
     },
 
     getCMSContent() {
       _api_service__WEBPACK_IMPORTED_MODULE_0__["default"].instance.get(`/v1/goals/male/`).then(response => {
         this.choices = response.data;
+        this.populateLocalData();
       });
     }
 
@@ -2800,6 +2858,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 
+const HISTORY_KEY = 'history_symptom';
+const RATING_KEY = 'rating_symptom';
+
+const _ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   mixins: [_active_screen_service__WEBPACK_IMPORTED_MODULE_0__["default"]],
   props: {
@@ -2834,18 +2897,30 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
 
-  created() {
-    this.selected_symptoms = this.stored || [];
-    this.symptoms = this.choices;
-  },
+  watch: {
+    choices(value) {
+      this.selected_symptoms = this.stored || [];
+      this.symptoms = this.choices;
+      this.updateChoices();
+    }
 
+  },
   methods: {
     proceed() {
-      if (this.selected_symptoms.length) {
-        this.$store.commit('SET_SCREEN', this.next);
-      }
-
       this.$emit('store', this.selected_symptoms);
+    },
+
+    updateChoices() {
+      _.forEach(this.symptoms, (item, index) => {
+        let choiceFound = _.find(this.selected_symptoms, {
+          name: item.name
+        });
+
+        if (choiceFound) {
+          this.symptoms[index][HISTORY_KEY] = choiceFound[HISTORY_KEY];
+          this.symptoms[index][RATING_KEY] = choiceFound[RATING_KEY];
+        }
+      });
     }
 
   }
@@ -3132,9 +3207,161 @@ const RATING_KEY = 'rating_symptom';
 /*!****************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib/index.js!./node_modules/vue-loader/lib/index.js??vue-loader-options!./src/js/components/TestosteroneImbalanceRating.vue?vue&type=script&lang=js& ***!
   \****************************************************************************************************************************************************************************************/
-/***/ (() => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-throw new Error("Module build failed (from ./node_modules/babel-loader/lib/index.js):\nSyntaxError: /Applications/XAMPP/xamppfiles/htdocs/hammer-assessment/src/js/components/TestosteroneImbalanceRating.vue: Unexpected token (144:15)\n\n\u001b[0m \u001b[90m 142 |\u001b[39m                 \u001b[36mthis\u001b[39m\u001b[33m.\u001b[39mupdateLocalData()\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 143 |\u001b[39m                 \u001b[0m\n\u001b[0m\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 144 |\u001b[39m             })\u001b[33m;\u001b[39m\u001b[33m,\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m     |\u001b[39m                \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 145 |\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 146 |\u001b[39m             updateLocalData () {\u001b[0m\n\u001b[0m \u001b[90m 147 |\u001b[39m\u001b[0m\n    at Parser._raise (/Applications/XAMPP/xamppfiles/htdocs/hammer-assessment/node_modules/@babel/parser/lib/index.js:541:17)\n    at Parser.raiseWithData (/Applications/XAMPP/xamppfiles/htdocs/hammer-assessment/node_modules/@babel/parser/lib/index.js:534:17)\n    at Parser.raise (/Applications/XAMPP/xamppfiles/htdocs/hammer-assessment/node_modules/@babel/parser/lib/index.js:495:17)\n    at Parser.unexpected (/Applications/XAMPP/xamppfiles/htdocs/hammer-assessment/node_modules/@babel/parser/lib/index.js:3580:16)\n    at Parser.parseExprAtom (/Applications/XAMPP/xamppfiles/htdocs/hammer-assessment/node_modules/@babel/parser/lib/index.js:12026:22)\n    at Parser.parseExprSubscripts (/Applications/XAMPP/xamppfiles/htdocs/hammer-assessment/node_modules/@babel/parser/lib/index.js:11584:23)\n    at Parser.parseUpdate (/Applications/XAMPP/xamppfiles/htdocs/hammer-assessment/node_modules/@babel/parser/lib/index.js:11564:21)\n    at Parser.parseMaybeUnary (/Applications/XAMPP/xamppfiles/htdocs/hammer-assessment/node_modules/@babel/parser/lib/index.js:11539:23)\n    at Parser.parseMaybeUnaryOrPrivate (/Applications/XAMPP/xamppfiles/htdocs/hammer-assessment/node_modules/@babel/parser/lib/index.js:11353:61)\n    at Parser.parseExprOps (/Applications/XAMPP/xamppfiles/htdocs/hammer-assessment/node_modules/@babel/parser/lib/index.js:11360:23)\n    at Parser.parseMaybeConditional (/Applications/XAMPP/xamppfiles/htdocs/hammer-assessment/node_modules/@babel/parser/lib/index.js:11330:23)\n    at Parser.parseMaybeAssign (/Applications/XAMPP/xamppfiles/htdocs/hammer-assessment/node_modules/@babel/parser/lib/index.js:11290:21)\n    at Parser.parseExpressionBase (/Applications/XAMPP/xamppfiles/htdocs/hammer-assessment/node_modules/@babel/parser/lib/index.js:11226:23)\n    at /Applications/XAMPP/xamppfiles/htdocs/hammer-assessment/node_modules/@babel/parser/lib/index.js:11220:39\n    at Parser.allowInAnd (/Applications/XAMPP/xamppfiles/htdocs/hammer-assessment/node_modules/@babel/parser/lib/index.js:13131:16)\n    at Parser.parseExpression (/Applications/XAMPP/xamppfiles/htdocs/hammer-assessment/node_modules/@babel/parser/lib/index.js:11220:17)");
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _api_service__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../api.service */ "./src/js/api.service.js");
+/* harmony import */ var _active_screen_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../active-screen.service */ "./src/js/active-screen.service.js");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+var _ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  mixins: [_active_screen_service__WEBPACK_IMPORTED_MODULE_1__["default"]],
+
+  mounted() {
+    this.getCMSContent();
+    this.symptoms.forEach(item => {
+      item.error_history_symptom = false;
+      item.error_rating_symptom = false;
+    });
+  },
+
+  created() {
+    let male_data = JSON.stringify(this.$store.state.local['testosterone-imbalance']);
+    this.symptoms = JSON.parse(male_data);
+  },
+
+  data() {
+    return {
+      history: [],
+      symptoms: [],
+      error: [],
+      valid: false
+    };
+  },
+
+  methods: {
+    getCMSContent() {
+      _api_service__WEBPACK_IMPORTED_MODULE_0__["default"].instance.get('/v1/router/history/').then(response => {
+        this.history = response.data;
+      });
+    },
+
+    validate() {
+      this.valid = true;
+      this.symptoms.forEach((item, index) => {
+        this.symptoms[index]['error_rating_symptom'] = false;
+        this.symptoms[index]['error_history_symptom'] = false;
+
+        if (!item.rating_symptom) {
+          this.symptoms[index]['error_rating_symptom'] = true;
+          this.valid = false;
+        }
+
+        if (!item.history_symptom) {
+          this.symptoms[index]['error_history_symptom'] = true;
+          this.valid = false;
+        }
+      });
+      let data_holder = JSON.stringify(this.symptoms);
+      this.symptoms = JSON.parse(data_holder);
+
+      if (this.valid) {
+        this.proceed();
+      }
+    },
+
+    processData() {},
+
+    proceed() {
+      let data = this.symptoms.map(item => {
+        return {
+          symptom: item.symptom,
+          rating_symptom: item.rating_symptom,
+          history_symptom: item.history_symptom
+        };
+      });
+      _api_service__WEBPACK_IMPORTED_MODULE_0__["default"].instance.post(`/v1/fake-profile-symptoms/${this.$store.state.username}/`, data).then(response => {
+        this.$store.commit('SET_SCREEN', 'thyroid-imbalance');
+        this.updateLocalData();
+      });
+    },
+
+    updateLocalData() {
+      let parsed = _.map(this.symptoms, item => {
+        return {
+          name: item.name,
+          symptom: item.symptom,
+          history_symptom: item.history_symptom,
+          rating_symptom: item.rating_symptom
+        };
+      });
+
+      let localUser = this.$store.state.local;
+      localUser['testosterone-imbalance'] = parsed;
+      this.$store.commit('SET_LOCAL_USER', localUser);
+    }
+
+  }
+});
 
 /***/ }),
 
@@ -3174,15 +3401,23 @@ __webpack_require__.r(__webpack_exports__);
 
   data() {
     return {
-      symptoms: []
+      symptoms: [],
+      selected: []
     };
   },
 
   created() {
     this.getCMSContent();
+    this.populateLocalData();
   },
 
   methods: {
+    populateLocalData() {
+      if (this.$store.state.local['thyroid-imbalance']) {
+        this.selected = this.$store.state.local['thyroid-imbalance'];
+      }
+    },
+
     getCMSContent() {
       _api_service__WEBPACK_IMPORTED_MODULE_1__["default"].instance.get(`/v1/desease-read-only/male/`).then(response => {
         response.data.forEach(item => {
@@ -3204,10 +3439,16 @@ __webpack_require__.r(__webpack_exports__);
     },
 
     store(data) {
-      this.$store.commit('SET_MALE_DATA', {
-        experience: this.$store.state.male_data.experience,
-        thyroid_imbalance: data
-      });
+      let localUser = this.$store.state.local;
+      localUser['thyroid-imbalance'] = data;
+      this.$store.commit('SET_LOCAL_USER', localUser);
+      console.log(this.selected);
+
+      if (data.length) {
+        this.$store.commit('SET_SCREEN', 'thyroid-imbalance-rating');
+      } else {
+        this.$store.commit('SET_SCREEN', 'goals');
+      }
     }
 
   }
@@ -3241,7 +3482,19 @@ __webpack_require__.r(__webpack_exports__);
 //
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  data() {
+    return {
+      selected: []
+    };
+  },
+
   methods: {
+    populateLocalData() {
+      if (this.$store.state.local['thyroid-imbalance']) {
+        this.selected = this.$store.state.local['thyroid-imbalance'];
+      }
+    },
+
     store(data) {
       let params = data.map(item => {
         return {
@@ -3250,9 +3503,26 @@ __webpack_require__.r(__webpack_exports__);
           history_symptom: item.history_symptom
         };
       });
+      console.log(data);
       _api_service__WEBPACK_IMPORTED_MODULE_0__["default"].instance.post(`/v1/fake-profile-symptoms/${this.$store.state.username}/`, params).then(response => {
+        this.updateLocalData(data);
         this.$store.commit('SET_SCREEN', 'goals');
       });
+    },
+
+    updateLocalData(data) {
+      let parsed = _.map(data, item => {
+        return {
+          name: item.name,
+          symptom: item.symptom,
+          history_symptom: item.history_symptom,
+          rating_symptom: item.rating_symptom
+        };
+      });
+
+      let localUser = this.$store.state.local;
+      localUser['thyroid-imbalance'] = parsed;
+      this.$store.commit('SET_LOCAL_USER', localUser);
     }
 
   }
@@ -21048,6 +21318,43 @@ component.options.__file = "src/js/components/RatingSelection.vue"
 
 /***/ }),
 
+/***/ "./src/js/components/Sorry.vue":
+/*!*************************************!*\
+  !*** ./src/js/components/Sorry.vue ***!
+  \*************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _Sorry_vue_vue_type_template_id_243ada7e___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Sorry.vue?vue&type=template&id=243ada7e& */ "./src/js/components/Sorry.vue?vue&type=template&id=243ada7e&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! !../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+var script = {}
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_1__["default"])(
+  script,
+  _Sorry_vue_vue_type_template_id_243ada7e___WEBPACK_IMPORTED_MODULE_0__.render,
+  _Sorry_vue_vue_type_template_id_243ada7e___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "src/js/components/Sorry.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
 /***/ "./src/js/components/TestosteroneImbalance.vue":
 /*!*****************************************************!*\
   !*** ./src/js/components/TestosteroneImbalance.vue ***!
@@ -21598,6 +21905,23 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./src/js/components/Sorry.vue?vue&type=template&id=243ada7e&":
+/*!********************************************************************!*\
+  !*** ./src/js/components/Sorry.vue?vue&type=template&id=243ada7e& ***!
+  \********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Sorry_vue_vue_type_template_id_243ada7e___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Sorry_vue_vue_type_template_id_243ada7e___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Sorry_vue_vue_type_template_id_243ada7e___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Sorry.vue?vue&type=template&id=243ada7e& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./src/js/components/Sorry.vue?vue&type=template&id=243ada7e&");
+
+
+/***/ }),
+
 /***/ "./src/js/components/TestosteroneImbalance.vue?vue&type=template&id=75db47c1&":
 /*!************************************************************************************!*\
   !*** ./src/js/components/TestosteroneImbalance.vue?vue&type=template&id=75db47c1& ***!
@@ -21710,6 +22034,8 @@ var render = function () {
       _vm.$store.state.screen == "goals" ? _c("goals") : _vm._e(),
       _vm._v(" "),
       _vm.$store.state.screen == "cancer" ? _c("cancer") : _vm._e(),
+      _vm._v(" "),
+      _vm.$store.state.screen == "sorry" ? _c("sorry") : _vm._e(),
       _vm._v(" "),
       _vm.$store.state.screen == "contact-number-male"
         ? _c("contact-number-male")
@@ -22123,8 +22449,8 @@ var render = function () {
           title: "ASSESSMENT COMPLETE!",
           question:
             "Please provide your phone number so we can text you a link to your results.",
+          previous: "birthday-male",
         },
-        on: { store: _vm.proceed },
       }),
     ],
     1
@@ -22174,35 +22500,35 @@ var render = function () {
               {
                 name: "model",
                 rawName: "v-model",
-                value: _vm.selection,
-                expression: "selection",
+                value: _vm.selected,
+                expression: "selected",
               },
             ],
             attrs: { id: "symptom-" + item.id, type: "checkbox" },
             domProps: {
               value: item,
-              checked: Array.isArray(_vm.selection)
-                ? _vm._i(_vm.selection, item) > -1
-                : _vm.selection,
+              checked: Array.isArray(_vm.selected)
+                ? _vm._i(_vm.selected, item) > -1
+                : _vm.selected,
             },
             on: {
               change: function ($event) {
-                var $$a = _vm.selection,
+                var $$a = _vm.selected,
                   $$el = $event.target,
                   $$c = $$el.checked ? true : false
                 if (Array.isArray($$a)) {
                   var $$v = item,
                     $$i = _vm._i($$a, $$v)
                   if ($$el.checked) {
-                    $$i < 0 && (_vm.selection = $$a.concat([$$v]))
+                    $$i < 0 && (_vm.selected = $$a.concat([$$v]))
                   } else {
                     $$i > -1 &&
-                      (_vm.selection = $$a
+                      (_vm.selected = $$a
                         .slice(0, $$i)
                         .concat($$a.slice($$i + 1)))
                   }
                 } else {
-                  _vm.selection = $$c
+                  _vm.selected = $$c
                 }
               },
             },
@@ -22218,7 +22544,7 @@ var render = function () {
         staticClass: "link",
         on: {
           click: function ($event) {
-            return _vm.setActiveScreen("thyroid-imbalance-rating")
+            return _vm.setActiveScreen(_vm.back)
           },
         },
       },
@@ -22506,7 +22832,7 @@ var render = function () {
       "div",
       { staticClass: "three-col" },
       _vm._l(_vm.choices, function (item) {
-        return _c("div", { staticClass: "form-group" }, [
+        return _c("div", { key: item.symptom, staticClass: "form-group" }, [
           _c("label", { attrs: { for: "symptom-" + item.symptom } }, [
             _vm._v(_vm._s(item.titel ? item.titel : item.name)),
           ]),
@@ -22739,6 +23065,31 @@ var render = function () {
     ],
     2
   )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./src/js/components/Sorry.vue?vue&type=template&id=243ada7e&":
+/*!***********************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./src/js/components/Sorry.vue?vue&type=template&id=243ada7e& ***!
+  \***********************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function () {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div")
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -23049,10 +23400,10 @@ var render = function () {
           title: "HAIR LOSS AND FATIGUE ARE LINKED TO THYROID DYSFUNCTION.",
           question: "Ever experience any of the following?",
           choices: _vm.symptoms,
-          stored: _vm.$store.state.male_data.thyroid_imbalance,
-          next: "thyroid-imbalance-rating",
+          next: "",
           previous: "testosterone-imbalance-rating",
           "vue-key": "thyroid_imbalance",
+          stored: _vm.$store.state.local["thyroid-imbalance"],
         },
         on: { store: _vm.store },
       }),
@@ -23090,9 +23441,9 @@ var render = function () {
         attrs: {
           title: "20 MILLION AMERICANS HAVE SOME FORM OF THYROID DEFICIENCY.",
           question: "How often do you experience the following?",
-          stored: _vm.$store.state.male_data.thyroid_imbalance,
+          stored: _vm.$store.state.local["thyroid-imbalance"],
           next: "goals",
-          prev: "thyroid-imbalance",
+          previous: "thyroid-imbalance",
         },
         on: { store: _vm.store },
       }),
@@ -33100,7 +33451,7 @@ var __webpack_exports__ = {};
   !*** ./src/js/main.js ***!
   \************************/
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.runtime.esm.js");
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.runtime.esm.js");
 /* harmony import */ var _components_Introduction_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./components/Introduction.vue */ "./src/js/components/Introduction.vue");
 /* harmony import */ var _components_Birthday_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./components/Birthday.vue */ "./src/js/components/Birthday.vue");
 /* harmony import */ var _components_BirthdayMale_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/BirthdayMale.vue */ "./src/js/components/BirthdayMale.vue");
@@ -33114,8 +33465,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_Cancer_vue__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./components/Cancer.vue */ "./src/js/components/Cancer.vue");
 /* harmony import */ var _components_ContactNumber_vue__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./components/ContactNumber.vue */ "./src/js/components/ContactNumber.vue");
 /* harmony import */ var _components_ContactNumberMale_vue__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./components/ContactNumberMale.vue */ "./src/js/components/ContactNumberMale.vue");
-/* harmony import */ var _components_App_vue__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./components/App.vue */ "./src/js/components/App.vue");
-/* harmony import */ var _store__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./store */ "./src/js/store.js");
+/* harmony import */ var _components_Sorry_vue__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./components/Sorry.vue */ "./src/js/components/Sorry.vue");
+/* harmony import */ var _components_App_vue__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./components/App.vue */ "./src/js/components/App.vue");
+/* harmony import */ var _store__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./store */ "./src/js/store.js");
 
 
 
@@ -33131,25 +33483,27 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-const AppComponent = vue__WEBPACK_IMPORTED_MODULE_14__["default"].component('app', _components_App_vue__WEBPACK_IMPORTED_MODULE_13__["default"]);
-const IntroductionComponent = vue__WEBPACK_IMPORTED_MODULE_14__["default"].component('introduction', _components_Introduction_vue__WEBPACK_IMPORTED_MODULE_0__["default"]);
-const BirthdayComponent = vue__WEBPACK_IMPORTED_MODULE_14__["default"].component('birthday', _components_Birthday_vue__WEBPACK_IMPORTED_MODULE_1__["default"]);
-const BirthdayMaleComponent = vue__WEBPACK_IMPORTED_MODULE_14__["default"].component('birthday-male', _components_BirthdayMale_vue__WEBPACK_IMPORTED_MODULE_2__["default"]);
-const TestosteroneImbalanceComponent = vue__WEBPACK_IMPORTED_MODULE_14__["default"].component('TestosteroneImbalance', _components_TestosteroneImbalance_vue__WEBPACK_IMPORTED_MODULE_3__["default"]);
-const TestosteroneImbalanceRatingComponent = vue__WEBPACK_IMPORTED_MODULE_14__["default"].component('TestosteroneImbalanceRating', _components_TestosteroneImbalanceRating_vue__WEBPACK_IMPORTED_MODULE_4__["default"]);
-const MultipleSelectionComponent = vue__WEBPACK_IMPORTED_MODULE_14__["default"].component('MultipleSelection', _components_MultipleSelection_vue__WEBPACK_IMPORTED_MODULE_5__["default"]);
-const RatingSelectionComponent = vue__WEBPACK_IMPORTED_MODULE_14__["default"].component('RatingSelection', _components_RatingSelection_vue__WEBPACK_IMPORTED_MODULE_6__["default"]);
-const ThyroidImbalanceComponent = vue__WEBPACK_IMPORTED_MODULE_14__["default"].component('ThyroidImbalance', _components_ThyroidImbalance_vue__WEBPACK_IMPORTED_MODULE_7__["default"]);
-const ThyroidImbalanceRatingComponent = vue__WEBPACK_IMPORTED_MODULE_14__["default"].component('ThyroidImbalanceRating', _components_ThyroidImbalanceRating_vue__WEBPACK_IMPORTED_MODULE_8__["default"]);
-const GoalsComponent = vue__WEBPACK_IMPORTED_MODULE_14__["default"].component('Goals', _components_Goals_vue__WEBPACK_IMPORTED_MODULE_9__["default"]);
-const CancerComponent = vue__WEBPACK_IMPORTED_MODULE_14__["default"].component('Cancer', _components_Cancer_vue__WEBPACK_IMPORTED_MODULE_10__["default"]);
-const ContactNumberComponent = vue__WEBPACK_IMPORTED_MODULE_14__["default"].component('ContactNumber', _components_ContactNumber_vue__WEBPACK_IMPORTED_MODULE_11__["default"]);
-const ContactNumberMaleComponent = vue__WEBPACK_IMPORTED_MODULE_14__["default"].component('ContactNumberMale', _components_ContactNumberMale_vue__WEBPACK_IMPORTED_MODULE_12__["default"]);
 
-const assessment = new vue__WEBPACK_IMPORTED_MODULE_14__["default"]({
+const AppComponent = vue__WEBPACK_IMPORTED_MODULE_15__["default"].component('app', _components_App_vue__WEBPACK_IMPORTED_MODULE_14__["default"]);
+const IntroductionComponent = vue__WEBPACK_IMPORTED_MODULE_15__["default"].component('introduction', _components_Introduction_vue__WEBPACK_IMPORTED_MODULE_0__["default"]);
+const BirthdayComponent = vue__WEBPACK_IMPORTED_MODULE_15__["default"].component('birthday', _components_Birthday_vue__WEBPACK_IMPORTED_MODULE_1__["default"]);
+const BirthdayMaleComponent = vue__WEBPACK_IMPORTED_MODULE_15__["default"].component('birthday-male', _components_BirthdayMale_vue__WEBPACK_IMPORTED_MODULE_2__["default"]);
+const TestosteroneImbalanceComponent = vue__WEBPACK_IMPORTED_MODULE_15__["default"].component('TestosteroneImbalance', _components_TestosteroneImbalance_vue__WEBPACK_IMPORTED_MODULE_3__["default"]);
+const TestosteroneImbalanceRatingComponent = vue__WEBPACK_IMPORTED_MODULE_15__["default"].component('TestosteroneImbalanceRating', _components_TestosteroneImbalanceRating_vue__WEBPACK_IMPORTED_MODULE_4__["default"]);
+const MultipleSelectionComponent = vue__WEBPACK_IMPORTED_MODULE_15__["default"].component('MultipleSelection', _components_MultipleSelection_vue__WEBPACK_IMPORTED_MODULE_5__["default"]);
+const RatingSelectionComponent = vue__WEBPACK_IMPORTED_MODULE_15__["default"].component('RatingSelection', _components_RatingSelection_vue__WEBPACK_IMPORTED_MODULE_6__["default"]);
+const ThyroidImbalanceComponent = vue__WEBPACK_IMPORTED_MODULE_15__["default"].component('ThyroidImbalance', _components_ThyroidImbalance_vue__WEBPACK_IMPORTED_MODULE_7__["default"]);
+const ThyroidImbalanceRatingComponent = vue__WEBPACK_IMPORTED_MODULE_15__["default"].component('ThyroidImbalanceRating', _components_ThyroidImbalanceRating_vue__WEBPACK_IMPORTED_MODULE_8__["default"]);
+const GoalsComponent = vue__WEBPACK_IMPORTED_MODULE_15__["default"].component('Goals', _components_Goals_vue__WEBPACK_IMPORTED_MODULE_9__["default"]);
+const CancerComponent = vue__WEBPACK_IMPORTED_MODULE_15__["default"].component('Cancer', _components_Cancer_vue__WEBPACK_IMPORTED_MODULE_10__["default"]);
+const ContactNumberComponent = vue__WEBPACK_IMPORTED_MODULE_15__["default"].component('ContactNumber', _components_ContactNumber_vue__WEBPACK_IMPORTED_MODULE_11__["default"]);
+const ContactNumberMaleComponent = vue__WEBPACK_IMPORTED_MODULE_15__["default"].component('ContactNumberMale', _components_ContactNumberMale_vue__WEBPACK_IMPORTED_MODULE_12__["default"]);
+const SorryComponent = vue__WEBPACK_IMPORTED_MODULE_15__["default"].component('Sorry', _components_Sorry_vue__WEBPACK_IMPORTED_MODULE_13__["default"]);
+
+const assessment = new vue__WEBPACK_IMPORTED_MODULE_15__["default"]({
   el: '#app',
   render: h => h(AppComponent),
-  store: _store__WEBPACK_IMPORTED_MODULE_15__["default"]
+  store: _store__WEBPACK_IMPORTED_MODULE_16__["default"]
 });
 })();
 
