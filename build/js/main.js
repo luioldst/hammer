@@ -3085,7 +3085,13 @@ const RATING_KEY = 'rating_symptom';
           symptom: item.id
         };
       });
-      this.populateSelected();
+
+      if (this.$store.state.local['testosterone-imbalance']) {
+        this.selected_symptoms = this.$store.state.local['testosterone-imbalance'];
+        this.updateChoices();
+      } else {
+        this.populateSelected();
+      }
     },
 
     populateSelected() {
@@ -3126,142 +3132,9 @@ const RATING_KEY = 'rating_symptom';
 /*!****************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib/index.js!./node_modules/vue-loader/lib/index.js??vue-loader-options!./src/js/components/TestosteroneImbalanceRating.vue?vue&type=script&lang=js& ***!
   \****************************************************************************************************************************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+/***/ (() => {
 
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _api_service__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../api.service */ "./src/js/api.service.js");
-/* harmony import */ var _active_screen_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../active-screen.service */ "./src/js/active-screen.service.js");
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  mixins: [_active_screen_service__WEBPACK_IMPORTED_MODULE_1__["default"]],
-
-  mounted() {
-    this.getCMSContent();
-    this.symptoms.forEach(item => {
-      item.error_history_symptom = false;
-      item.error_rating_symptom = false;
-    });
-  },
-
-  created() {
-    let male_data = JSON.stringify(this.$store.state.user['testosterone-imbalance']);
-    this.symptoms = JSON.parse(male_data);
-  },
-
-  data() {
-    return {
-      history: [],
-      symptoms: [],
-      error: [],
-      valid: false
-    };
-  },
-
-  methods: {
-    getCMSContent() {
-      _api_service__WEBPACK_IMPORTED_MODULE_0__["default"].instance.get('/v1/router/history/').then(response => {
-        this.history = response.data;
-      });
-    },
-
-    validate() {
-      this.valid = true;
-      this.symptoms.forEach((item, index) => {
-        this.symptoms[index]['error_rating_symptom'] = false;
-        this.symptoms[index]['error_history_symptom'] = false;
-
-        if (!item.rating_symptom) {
-          this.symptoms[index]['error_rating_symptom'] = true;
-          this.valid = false;
-        }
-
-        if (!item.history_symptom) {
-          this.symptoms[index]['error_history_symptom'] = true;
-          this.valid = false;
-        }
-      });
-      let data_holder = JSON.stringify(this.symptoms);
-      this.symptoms = JSON.parse(data_holder);
-
-      if (this.valid) {
-        this.proceed();
-      }
-    },
-
-    processData() {},
-
-    proceed() {
-      let data = this.symptoms.map(item => {
-        return {
-          symptom: item.symptom,
-          rating_symptom: item.rating_symptom,
-          history_symptom: item.history_symptom
-        };
-      });
-      _api_service__WEBPACK_IMPORTED_MODULE_0__["default"].instance.post(`/v1/fake-profile-symptoms/${this.$store.state.username}/`, data).then(response => {
-        this.$store.commit('SET_SCREEN', 'thyroid-imbalance');
-      });
-    }
-
-  }
-});
+throw new Error("Module build failed (from ./node_modules/babel-loader/lib/index.js):\nSyntaxError: /Applications/XAMPP/xamppfiles/htdocs/hammer-assessment/src/js/components/TestosteroneImbalanceRating.vue: Unexpected token (144:15)\n\n\u001b[0m \u001b[90m 142 |\u001b[39m                 \u001b[36mthis\u001b[39m\u001b[33m.\u001b[39mupdateLocalData()\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 143 |\u001b[39m                 \u001b[0m\n\u001b[0m\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 144 |\u001b[39m             })\u001b[33m;\u001b[39m\u001b[33m,\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m     |\u001b[39m                \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 145 |\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 146 |\u001b[39m             updateLocalData () {\u001b[0m\n\u001b[0m \u001b[90m 147 |\u001b[39m\u001b[0m\n    at Parser._raise (/Applications/XAMPP/xamppfiles/htdocs/hammer-assessment/node_modules/@babel/parser/lib/index.js:541:17)\n    at Parser.raiseWithData (/Applications/XAMPP/xamppfiles/htdocs/hammer-assessment/node_modules/@babel/parser/lib/index.js:534:17)\n    at Parser.raise (/Applications/XAMPP/xamppfiles/htdocs/hammer-assessment/node_modules/@babel/parser/lib/index.js:495:17)\n    at Parser.unexpected (/Applications/XAMPP/xamppfiles/htdocs/hammer-assessment/node_modules/@babel/parser/lib/index.js:3580:16)\n    at Parser.parseExprAtom (/Applications/XAMPP/xamppfiles/htdocs/hammer-assessment/node_modules/@babel/parser/lib/index.js:12026:22)\n    at Parser.parseExprSubscripts (/Applications/XAMPP/xamppfiles/htdocs/hammer-assessment/node_modules/@babel/parser/lib/index.js:11584:23)\n    at Parser.parseUpdate (/Applications/XAMPP/xamppfiles/htdocs/hammer-assessment/node_modules/@babel/parser/lib/index.js:11564:21)\n    at Parser.parseMaybeUnary (/Applications/XAMPP/xamppfiles/htdocs/hammer-assessment/node_modules/@babel/parser/lib/index.js:11539:23)\n    at Parser.parseMaybeUnaryOrPrivate (/Applications/XAMPP/xamppfiles/htdocs/hammer-assessment/node_modules/@babel/parser/lib/index.js:11353:61)\n    at Parser.parseExprOps (/Applications/XAMPP/xamppfiles/htdocs/hammer-assessment/node_modules/@babel/parser/lib/index.js:11360:23)\n    at Parser.parseMaybeConditional (/Applications/XAMPP/xamppfiles/htdocs/hammer-assessment/node_modules/@babel/parser/lib/index.js:11330:23)\n    at Parser.parseMaybeAssign (/Applications/XAMPP/xamppfiles/htdocs/hammer-assessment/node_modules/@babel/parser/lib/index.js:11290:21)\n    at Parser.parseExpressionBase (/Applications/XAMPP/xamppfiles/htdocs/hammer-assessment/node_modules/@babel/parser/lib/index.js:11226:23)\n    at /Applications/XAMPP/xamppfiles/htdocs/hammer-assessment/node_modules/@babel/parser/lib/index.js:11220:39\n    at Parser.allowInAnd (/Applications/XAMPP/xamppfiles/htdocs/hammer-assessment/node_modules/@babel/parser/lib/index.js:13131:16)\n    at Parser.parseExpression (/Applications/XAMPP/xamppfiles/htdocs/hammer-assessment/node_modules/@babel/parser/lib/index.js:11220:17)");
 
 /***/ }),
 
@@ -3488,7 +3361,8 @@ vue__WEBPACK_IMPORTED_MODULE_2__["default"].use(vuex__WEBPACK_IMPORTED_MODULE_3_
       experience: [],
       thyroid_imbalance: [],
       goals: []
-    }
+    },
+    local: {}
   },
   plugins: [(0,vuex_persistedstate__WEBPACK_IMPORTED_MODULE_0__["default"])()],
   mutations: _store_mutations__WEBPACK_IMPORTED_MODULE_1__.STORE_MUTATIONS
