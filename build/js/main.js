@@ -2782,6 +2782,8 @@ __webpack_require__.r(__webpack_exports__);
   },
 
   methods: {
+    populate() {},
+
     createFakeProfile() {
       _api_service__WEBPACK_IMPORTED_MODULE_0__["default"].instance.post('/v1/fake-profile-create/', {
         Cache_id: '',
