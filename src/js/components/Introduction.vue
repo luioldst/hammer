@@ -30,14 +30,10 @@
         <input id="terms" type="checkbox" :true-value="true" v-model="agree">
         <label for="terms">I agree to the <a href="/terms" target="_blank">Terms and Conditions</a>, <a href="/privacy" target="_blank">Privacy Policy</a> and <a href="/telehealth" target="_blank">Telehealth Consent</a></label>
         <p style="color: red" v-if="terms_error">{{ terms_error }}</p>
-
-        {{ agree }}
     </div>
 
     <button class="link" @click="validate">Submit</button>
-    
 
-    {{ this.$store.state.gender }}
 
     
 

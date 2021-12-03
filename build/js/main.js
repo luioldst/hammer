@@ -2806,10 +2806,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
 const _ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
 
 
@@ -49260,15 +49256,11 @@ var render = function () {
             _vm._v(_vm._s(_vm.terms_error)),
           ])
         : _vm._e(),
-      _vm._v("\n\n        " + _vm._s(_vm.agree) + "\n    "),
     ]),
     _vm._v(" "),
     _c("button", { staticClass: "link", on: { click: _vm.validate } }, [
       _vm._v("Submit"),
     ]),
-    _vm._v(
-      "\n    \n\n    " + _vm._s(this.$store.state.gender) + "\n\n    \n\n"
-    ),
   ])
 }
 var staticRenderFns = [
