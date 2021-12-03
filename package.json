@@ -1,5 +1,5 @@
 {
-  "name": "Roston",
+  "name": "new",
   "version": "1.0.0",
   "description": "This is pretty close to the absolute bare minimum of what you would need to install a theme to publish WordPress content. I created it as a learning exercise to show how basic WordPress theme development can be.",
   "main": "main.js",
@@ -34,19 +34,17 @@
     "webpack-cli": "^4.7.0"
   },
   "dependencies": {
-    "@popperjs/core": "^2.9.2",
-    "@splidejs/splide": "^2.4.21",
     "and": "0.0.3",
     "axios": "^0.24.0",
     "bootstrap": "^5.1.0",
     "ismobilejs": "^1.1.1",
     "lodash": "^4.17.21",
+    "moment": "^2.29.1",
     "sticky-sidebar": "^3.3.1",
     "vue": "^2.6.14",
     "vue-loader": "^15.9.8",
     "vue-template-compiler": "^2.6.14",
     "vuex": "^3.6.2",
-    "vuex-persistedstate": "^4.1.0",
-    "waypoints": "^4.0.1"
+    "vuex-persistedstate": "^4.1.0"
   }
 }
