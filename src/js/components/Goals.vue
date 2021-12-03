@@ -27,7 +27,7 @@ export default {
 
     created () {
         if (this.$store.state.local['goals']) {
-            this.selected = this.$store.state.local('goals');
+            this.selected = this.$store.state.local['goals'];
         }
 
         this.getCMSData();
@@ -36,8 +36,13 @@ export default {
 
     computed: {
         previous () {
-            console.log(this.$store.state.local['testosterone-imbalance'].length);
-            return this.$store.state.local['testosterone-imbalance'].length ? 'testosterone-imbalance-rating' : 'testosterone-imbalance';
+
+            if (this.$store.state.user.gender == 'male') {
+                return this.$store.state.local['testosterone-imbalance'].length ? 'testosterone-imbalance-rating' : 'testosterone-imbalance';
+            } else {
+                return 'thyroid'
+            }
+            
         }
     },
 
@@ -83,7 +88,13 @@ export default {
                     data: this.$store.state.local
                 });
 
-                this.updateScreen('cancer')
+                if (this.$store.state.user.gender == 'male') {
+                    this.updateScreen('cancer')
+                } else {
+                    this.updateScreen('contact-number-female')
+                }
+
+                
             })
         }
         

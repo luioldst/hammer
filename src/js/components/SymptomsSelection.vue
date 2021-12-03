@@ -1,7 +1,5 @@
 <template>
-    <div>
-        
-        
+    <div>        
         <div class="form-group" v-for="item in selection_parsed" :key="`selection-${item.id}`">
             <label :for="`selection-${item.id}`">{{ item.titel }}</label>
             <input :id="`selection-${item.id}`" type="checkbox" v-model="selected" :value="item">
@@ -25,6 +23,11 @@ export default {
 
         selection: {
             type: Array
+        },
+
+        previousStatic: {
+            type: Boolean,
+            default: false
         }
     },
 
@@ -127,11 +130,17 @@ export default {
         previous () {
             let previousComponent = this.urls['previous'];
 
-            if (previousComponent !== 'introduction') {
-                return this.$store.state.local[previousComponent].length ? `${this.urls['previous']}-rating` : this.urls['previous'];
+            if (!this.previousStatic) {
+                if (previousComponent !== 'introduction') {
+                    return this.$store.state.local[previousComponent].length ? `${this.urls['previous']}-rating` : this.urls['previous'];
+                } else {
+                    return previousComponent;
+                }
             } else {
                 return previousComponent;
             }
+
+            
 
             
         }

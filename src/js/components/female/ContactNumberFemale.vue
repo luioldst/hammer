@@ -1,13 +1,13 @@
 <template>
     <div>
-        <contact-number next="result" previous="cancer"></contact-number>
+        <contact-number next="result" previous="goals"></contact-number>
     </div>
 </template>
 
 <script>
 const _ = require('lodash');
-import $http from '../api.service';
-import ContactNumber from './ContactNumber.vue';
+import $http from './../../api.service';
+import ContactNumber from './../ContactNumber.vue';
 export default {
 
     components: {

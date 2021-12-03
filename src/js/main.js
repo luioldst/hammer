@@ -11,11 +11,38 @@ import Cancer from './components/Cancer.vue';
 import BirthdayMale from './components/BirthdayMale.vue';
 import BirthdayFemale from './components/BirthdayFemale.vue';
 import ContactNumberMale from './components/ContactNumberMale.vue';
+import ContactNumberFemale from './components/female/ContactNumberFemale.vue';
 import Result from './components/Result.vue';
+import Period from './components/female/Period.vue';
+import PeriodDate from './components/female/PeriodDate.vue';
+import EstrogenImbalance from './components/female/EstrogenImbalance.vue';
+import EstrogenImbalanceRating from './components/female/EstrogenImbalanceRating.vue';
+import ProgesteroneImbalance from './components/female/ProgesteroneImbalance.vue';
+import ProgesteroneImbalanceRating from './components/female/ProgesteroneImbalanceRating.vue';
+import TestosteroneLow from './components/female/TestosteroneLow.vue';
+import TestosteroneLowRating from './components/female/TestosteroneLowRating.vue';
+import TestosteroneHigh from './components/female/TestosteroneHigh.vue';
+import TestosteroneHighRating from './components/female/TestosteroneHighRating.vue';
+
+import Thyroid from './components/female/Thyroid.vue';
+import ThyroidRating from './components/female/ThyroidRating.vue';
 
 
 // Components / female
 Vue.component('birthday-female', BirthdayFemale);
+Vue.component('period', Period);
+Vue.component('period-date', PeriodDate);
+Vue.component('estrogen-imbalance', EstrogenImbalance);
+Vue.component('estrogen-imbalance-rating', EstrogenImbalanceRating);
+Vue.component('progesterone-imbalance', ProgesteroneImbalance);
+Vue.component('progesterone-imbalance-rating', ProgesteroneImbalanceRating);
+Vue.component('testosterone-low', TestosteroneLow);
+Vue.component('testosterone-low-rating', TestosteroneLowRating);
+Vue.component('testosterone-high', TestosteroneHigh);
+Vue.component('testosterone-high-rating', TestosteroneHighRating);
+Vue.component('thyroid', Thyroid);
+Vue.component('thyroid-rating', ThyroidRating);
+Vue.component('contact-number-female', ContactNumberFemale);
 
 // Components / male
 Vue.component('introduction', Introduction);

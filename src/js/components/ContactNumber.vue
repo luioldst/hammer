@@ -1,17 +1,25 @@
 <template>
     <div>
-        <contact-number next="result" previous="cancer"></contact-number>
+        
+        <h1>Please provide your phone number so we can text you a link to your results.</h1>
+        <div class="form-group" >
+            <input maxlength="10" @keypress="isNumber($event)" placeholder="(XXX) XXXXXXX" type="text" v-model="phone">
+            
+        </div>
+
+        <button @click="updateScreen(previous)">Back</button>
+        <button @click="store">Next</button>
     </div>
 </template>
 
 <script>
 const _ = require('lodash');
 import $http from '../api.service';
-import ContactNumber from './ContactNumber.vue';
 export default {
-
-    components: {
-        ContactNumber
+    
+    props: {
+        next: String,
+        previous: String
     },
 
     data () {
@@ -58,7 +66,7 @@ export default {
                 localStorage.setItem('refresh', response.data.refresh);
                 localStorage.setItem('xx', response.data.user_id);
                 
-                this.updateScreen('result');
+                this.updateScreen(this.next);
             })
         }
         

@@ -9,9 +9,26 @@
         <cancer v-if="$store.state.screen == 'cancer'"></cancer>
         <birthday-male v-if="$store.state.screen == 'birthday-male'"></birthday-male>
         <contact-number-male v-if="$store.state.screen == 'contact-number-male'"></contact-number-male>
+        <contact-number-female v-if="$store.state.screen == 'contact-number-female'"></contact-number-female>
         <result v-if="$store.state.screen == 'result'"></result>
 
         <birthday-female v-if="$store.state.screen == 'birthday-female'"></birthday-female>
+        <period v-if="$store.state.screen == 'period'"></period>
+        <period-date v-if="$store.state.screen == 'period-date'"></period-date>
+        <estrogen-imbalance v-if="$store.state.screen == 'estrogen-imbalance'"></estrogen-imbalance>
+        <estrogen-imbalance-rating v-if="$store.state.screen == 'estrogen-imbalance-rating'"></estrogen-imbalance-rating>
+
+        <testosterone-low v-if="$store.state.screen == 'testosterone-low'"></testosterone-low>
+        <testosterone-low-rating v-if="$store.state.screen == 'testosterone-low-rating'"></testosterone-low-rating>
+
+        <testosterone-high v-if="$store.state.screen == 'testosterone-high'"></testosterone-high>
+        <testosterone-high-rating v-if="$store.state.screen == 'testosterone-high-rating'"></testosterone-high-rating>
+
+        <progesterone-imbalance v-if="$store.state.screen == 'progesterone-imbalance'"></progesterone-imbalance>
+        <progesterone-imbalance-rating v-if="$store.state.screen == 'progesterone-imbalance-rating'"></progesterone-imbalance-rating>
+
+        <thyroid v-if="$store.state.screen == 'thyroid'"></thyroid>
+        <thyroid-rating v-if="$store.state.screen == 'thyroid-rating'"></thyroid-rating>
 
         {{ $store.state.screen }}
     </div>

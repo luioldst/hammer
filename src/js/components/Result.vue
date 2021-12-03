@@ -10,16 +10,13 @@
 import axios from 'axios';
 import $http from './../api.service';
 export default {
-    created () {
+    mounted () {
         this.getUser();
     },
 
     data () {
         return {
-            user: {},
-            headers: {
-                Authorization: `Bearer ${localStorage.getItem('access')}`
-            }
+            user: {}
         }
     },
     
@@ -27,8 +24,9 @@ export default {
     methods: {
         getUser () {
             let self = this;
+            console.log(this.headers);
             axios.get(`${$http.loggedInUrl}/v1/patient-profile/`, { 
-                ...self.headers 
+                headers: { Authorization: `Bearer ${localStorage.getItem('access')}` }
             }).then ( response => {
                 let patient = response.data[0];
                 this.user = response.data[0];

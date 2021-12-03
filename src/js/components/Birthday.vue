@@ -54,7 +54,7 @@ export default {
 
     created () {
         if (this.$store.state.user['dateofbirth']) {
-            this.parseBirthday();
+            this.parseBirthday(this.$store.state.user['dateofbirth']);
         } else {
             this.selected_year = this.years[0];
         }
