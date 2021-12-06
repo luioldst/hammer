@@ -5,7 +5,7 @@
             OK, LET'S START YOUR FREE VISIT
 
         </h2>
-        <h1 class="h1-lg">
+        <h1 class="h1-lg h1-intro">
             Please, introduce Yourself.
         </h1>
     </div>
