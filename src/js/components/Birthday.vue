@@ -1,35 +1,65 @@
 <template>
     <div>
         
-        <h1>What is your date of birth?</h1>
-        <div class="form-group">
-            <label for="month">Month</label>
-            <select id="month" v-model="selected_month">
-                <option v-for="month in months" :value="month" :key="`month-${month}`">{{ month }}</option>
-            </select>
-            
+        <div class="heading">
+            <h2 class="">
+                AGE
+
+            </h2>
+            <h1 class="text-sans h1-md">
+                What's your date of birth?
+            </h1>
         </div>
 
-        <div class="form-group" >
-            <label for="day">Days</label>
-            <select id="day" v-model="selected_day">
-                <option v-for="day in days" :value="day" :key="`day-${day}`">{{ day }}</option>
-            </select>
-            
+        <div class="form-container-inner form-container row-bday">    
+            <div class="custom-column three-col">
+
+                 <div>
+                    <div class="form-group btn-select">
+                        <label for="month">Month</label>
+                        <div class="select-wrapper">
+                            <select id="month" v-model="selected_month">
+                                <option v-for="month in months" :value="month" :key="`month-${month}`">{{ month }}</option>
+                            </select>
+                        </div>
+                        
+                    </div>
+                </div>
+
+                <div>
+                    <div class="form-group btn-select" >
+                        <label for="day">Days</label>
+                        <div class="select-wrapper">
+                            <select id="day" v-model="selected_day">
+                                <option v-for="day in days" :value="day" :key="`day-${day}`">{{ day }}</option>
+                            </select>
+                        </div>
+                        
+                    </div>
+                </div>
+
+                <div>
+                    <div class="form-group btn-select" >
+                        <label for="year">Year</label>
+                        <div class="select-wrapper">
+                            <select id="year" v-model="selected_year">
+                                <option v-for="year in years" :value="year" :key="`year-${year}`">{{ year }}</option>
+                            </select>
+                        </div>
+                        
+                    </div>
+                </div>
+
+            </div>
         </div>
 
-
-        <div class="form-group" >
-            <label for="year">Year</label>
-            <select id="year" v-model="selected_year">
-                <option v-for="year in years" :value="year" :key="`year-${year}`">{{ year }}</option>
-            </select>
-            
+        <div class="actions">
+            <button @click="updateScreen(previous)" class="link form-btn form-btn-back">Back</button>
+            <button @click="store" class="link form-btn btn-long">Finish</button>
         </div>
+
         
-
-        <button @click="updateScreen(previous)">Back</button>
-        <button @click="store">Next</button>
+    
     </div>
 </template>
 

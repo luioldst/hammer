@@ -1,6 +1,6 @@
 <template>
     <div>
-        <contact-number next="result" previous="cancer"></contact-number>
+        <contact-number next="result" previous="birthday-male"></contact-number>
     </div>
 </template>
 

@@ -1,5 +1,14 @@
 <template>
     <div>
+        <div class="heading">
+            <h2 class="h2-md">
+                20 MILLION AMERICANS HAVE SOME FORM OF THYROID DEFICIENCY.
+
+            </h2>
+            <h1 class="text-sans h1-md">
+                How often do you experience the following?
+            </h1>
+        </div>
         
         <symptoms-rating
             :urls="urls"
@@ -19,7 +28,7 @@ export default {
             urls: {
                 next_empty: 'goals',
                 next: 'goals',
-                previous: 'thyroid-imbalance',
+                previous: 'testosterone-imbalance',
                 local_key: 'testosterone-imbalance',
                 cms_slug: 'testosterone-imbalance'
             }

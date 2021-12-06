@@ -1,15 +1,29 @@
 <template>
     <div>
-        
-        
-        <div class="form-group" v-for="item in selection" :key="`selection-${item.id}`">
-            <label :for="`selection-${item.id}`">{{ item.titel }}</label>
-            <input :id="`selection-${item.id}`" type="checkbox" v-model="selected" :value="item">
-            
-        </div>
+        <div class="heading">
+            <h2 class="h2-md">
+                YOU'RE AT THE BEST PART NOW!
 
-        <button @click="updateScreen(previous)">Back</button>
-        <button @click="store">Next</button>
+            </h2>
+            <h1 class="text-sans h1-md">
+                Help us understand your goals for the future.
+            </h1>
+        </div>
+        <div class="form-container-inner form-container">    
+            <div class="custom-column four-col">
+                <div v-for="item in selection" :key="`selection-${item.id}`">
+                    <div class="form-group btn-selection" >
+                        <input :id="`selection-${item.id}`" type="checkbox" v-model="selected" :value="item">
+                        <label :for="`selection-${item.id}`">{{ item.titel }}</label>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="actions">
+            <button @click="updateScreen(previous)" class="link form-btn form-btn-back">Back</button>
+            <button @click="store" class="link form-btn">Next</button>
+        </div>
     </div>
 </template>
 

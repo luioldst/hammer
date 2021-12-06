@@ -1,13 +1,18 @@
 <template>
-    <div>        
-        <div class="form-group" v-for="item in selection_parsed" :key="`selection-${item.id}`">
-            <label :for="`selection-${item.id}`">{{ item.titel }}</label>
-            <input :id="`selection-${item.id}`" type="checkbox" v-model="selected" :value="item">
-            
-        </div>
+    <div class="form-container-inner form-container">    
+        <div class="custom-column four-col">
+            <div v-for="item in selection_parsed" :key="`selection-${item.id}`">
+                <div class="form-group btn-selection" >
+                    <input :id="`selection-${item.id}`" type="checkbox" v-model="selected" :value="item">
+                    <label :for="`selection-${item.id}`">{{ item.titel }}</label>
 
-        <button @click="updateScreen(previous)">Back</button>
-        <button @click="store">Next</button>
+                </div>
+            </div>
+        </div>
+        <div class="actions">
+            <button @click="updateScreen(previous)" class="link form-btn form-btn-back">Back</button>
+            <button @click="store" class="link form-btn">Next</button>
+        </div>
     </div>
 </template>
 

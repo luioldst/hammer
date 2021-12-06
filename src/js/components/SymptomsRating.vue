@@ -1,36 +1,56 @@
 <template>
     <div>
 
-        <div v-for="(symptom, index) in symptoms" :key="`symptom-${symptom.id}`">      
-            <div class="form-group">
-                Symptom: <strong>{{ symptom.titel }}</strong>
-            </div>
-            <div class="form-group">
-                Severity*: 
+        <table class="table-symptoms">
+            <thead>
+                <tr>
+                    <th width="33%">Symptom</th>
+                    <th width="33%">Severity*</th>
+                    <th width="25%">History*</th>
+                </tr>
+            </thead>
 
-                <div class="form-group" v-for="rating in rating_max" :key="`rating-${rating}`">
-                    <label :for="`symptom-${symptom.id}-severity`">{{ rating }}</label>
-                    <input type="radio" :name="`severity-${symptom.id}`" :id="`symptom-${symptom.id}-severity`" :value="rating" v-model="symptoms[index]['rating_symptom']">
-                </div>
+            <tbody>
+                <tr v-for="(symptom, index) in symptoms" :key="`symptom-${symptom.id}`">
+                    <td>{{ symptom.titel }}</td>
+                    <td>
 
-                <p class="error" v-if="symptoms[index].rating_error" style="color: red">Rating is required.</p>
-            </div>
+                        <div class="rating-selection" style="">
+                            <div v-for="rating in rating_max" :key="`rating-${rating}`">
+                                <div class="form-group btn-selection btn-circle" >
+                                    <input :id="`rating-${symptom.id}-${rating}-severity`" type="radio" :name="`severity-${symptom.id}`" v-model="symptoms[index]['rating_symptom']" :value="rating">
+                                    <label :for="`rating-${symptom.id}-${rating}-severity`">{{ rating }}</label>
 
-            <div class="form-group">
-                History*: 
-                <select v-model="symptoms[index].history_symptom" >
-                    <option :value="item.id" v-for="item in history" :key="item.cms_slug">{{ item.history }}</option>
-                </select>
+                                </div>
+                            </div>
+                        </div>
 
-                {{ symptoms[index].history_error }}
+<!--       
+                        <div class="form-group" v-for="rating in rating_max" :key="`rating-${rating}`">
+                            <label :for="`symptom-${symptom.id}-severity`">{{ rating }}</label>
+                            <input type="radio" :name="`severity-${symptom.id}`" :id="`symptom-${symptom.id}-severity`" :value="rating" v-model="symptoms[index]['rating_symptom']">
+                        </div> -->
 
-                <p class="error" v-if="symptoms[index].history_error" style="color: red">History is required.</p>
-            </div>
+                        <p class="error" v-if="symptoms[index].rating_error" style="color: red">Rating is required.</p>
+                    </td>
+                    <td>
+                        <select v-model="symptoms[index].history_symptom" >
+                            <option :value="item.id" v-for="item in history" :key="item.cms_slug">{{ item.history }}</option>
+                        </select>
+
+
+                        <p class="error" v-if="symptoms[index].history_error" style="color: red">History is required.</p>
+
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+  
+        <div class="actions">
+            <button class="link form-btn form-btn-back" @click="updateScreen(urls.previous)">Back</button>
+            <button class="link form-btn" @click="validate">Next</button>
         </div>
-
-
-        <button @click="updateScreen(urls.previous)">Back</button>
-        <button @click="validate">Next</button>
     </div>
 </template>
 
@@ -59,7 +79,17 @@ export default {
         this.getCMSData();
     },
 
-    watch: {
+    computed: {
+        previous () {
+            let previous = this.urls.previous;
+            if (this.$store.state.local[this.urls.previous]) {
+                if (this.$store.state.local[this.urls.previous].length ) {
+                    previous = `${this.urls.previous}-rating`;
+                }
+            }
+
+            return previous;
+        }
     },
 
     methods: {

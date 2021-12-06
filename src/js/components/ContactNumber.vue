@@ -1,14 +1,28 @@
 <template>
     <div>
-        
-        <h1>Please provide your phone number so we can text you a link to your results.</h1>
-        <div class="form-group" >
-            <input maxlength="10" @keypress="isNumber($event)" placeholder="(XXX) XXXXXXX" type="text" v-model="phone">
-            
+        <div class="heading">
+            <h2 class="h2-md">
+                ASSESSMENT COMPLETE!
+
+            </h2>
+
+            <h1 class="h1-lg heading-contact-number">Please provide your phone number so we can text you a link to your results.</h1>
         </div>
 
-        <button @click="updateScreen(previous)">Back</button>
-        <button @click="store">Next</button>
+        <div class="form-container">
+            <div class="form-group" >
+                <input :class="{ error : phone_error }" maxlength="10" @keypress="isNumber($event)" placeholder="(XXX) XXXXXXX" type="text" v-model="phone">
+                <p style="color: red" v-if="phone_error">{{ phone_error }}</p>
+            </div>
+        </div>
+
+
+        <div class="actions">
+            <button class="link form-btn form-btn-back" @click="updateScreen(previous)">Back</button>
+            <button class="link form-btn" @click="validate">
+                Final Step
+            </button>
+        </div>
     </div>
 </template>
 
@@ -24,7 +38,8 @@ export default {
 
     data () {
         return {
-            phone: ''
+            phone: '',
+            phone_error: ''
         }
     },
 
@@ -39,6 +54,21 @@ export default {
                 key: 'screen',
                 data: screen
             })
+        },
+
+        validate () {
+            
+            let valid = true;
+            this.phone_error = '';
+
+
+            if (!this.phone_error) {
+                this.phone_error = 'Contact number is required';
+                valid = false;
+            }
+
+            valid && this.store();
+            
         },
 
         store () {

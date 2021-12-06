@@ -1,6 +1,17 @@
 <template>
     <div>
 
+        <div class="heading">
+            <h2 class="h2-md">
+                HAIR LOSS AND FATIGUE ARE LINKED TO THYROID DYSFUNCTION.
+
+            </h2>
+            <h1 class="text-sans h1-md">
+                Ever experience any of the following?
+            </h1>
+        </div>
+
+
         
         
         <symptoms-selection

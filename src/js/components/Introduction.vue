@@ -1,11 +1,11 @@
 <template>
-<div >
+<div class="a-container" >
     <div class="heading">
         <h2>
             OK, LET'S START YOUR FREE VISIT
 
         </h2>
-        <h1>
+        <h1 class="h1-lg">
             Please, introduce Yourself.
         </h1>
     </div>
@@ -16,7 +16,7 @@
         <p style="color: red" v-if="name_error">{{ name_error }}</p>
     </div>
 
-    <div class="two-col">
+    <div class="custom-column two-col">
         <div class="form-group">
             <input placeholder="Email Address" type="email" :class="{ error : email_error }" v-model="email">
             <p style="color: red" v-if="email_error">{{ email_error }}</p>

@@ -2,21 +2,20 @@
     <div>
 
         <div class="heading">
-            <h2>
+            <h2 class="h2-md">
                 YOUR ANSWERS ARE CRUCIAL TO GENERATE RECOMMENDATIONS!
 
             </h2>
-            <h1>
+            <h1 class="text-sans h1-md">
                 Do you ever experience any of the following?
             </h1>
         </div>
 
-        <div class="form-container">
-            <symptoms-selection
+        
+        <symptoms-selection
             :urls="urls"
             :selection="selection"
         ></symptoms-selection>
-        </div>
         
         
     </div>

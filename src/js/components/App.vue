@@ -1,5 +1,5 @@
 <template>
-    <div class="a-container">
+    <div class="app">
         <introduction v-if="$store.state.screen == 'introduction'"></introduction>
         <thyroid-imbalance v-if="$store.state.screen == 'thyroid-imbalance'"></thyroid-imbalance>
         <thyroid-imbalance-rating v-if="$store.state.screen == 'thyroid-imbalance-rating'"></thyroid-imbalance-rating>

@@ -1,5 +1,15 @@
 <template>
     <div>
+
+        <div class="heading">
+            <h2 class="h2-md">
+                LOW T AFFECTS ABOUT 4 TO 5 MILLION MEN IN THE US.
+
+            </h2>
+            <h1 class="text-sans h1-md">
+                How often do you experience the following?
+            </h1>
+        </div>
         
         <symptoms-rating
             :urls="urls"
