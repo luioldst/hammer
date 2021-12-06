@@ -1,10 +1,24 @@
 <template>
     <div>
-        
-        <symptoms-selection
+
+        <div class="heading">
+            <h2>
+                YOUR ANSWERS ARE CRUCIAL TO GENERATE RECOMMENDATIONS!
+
+            </h2>
+            <h1>
+                Do you ever experience any of the following?
+            </h1>
+        </div>
+
+        <div class="form-container">
+            <symptoms-selection
             :urls="urls"
             :selection="selection"
         ></symptoms-selection>
+        </div>
+        
+        
     </div>
 </template>
 

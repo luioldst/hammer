@@ -1,20 +1,37 @@
 <template>
-<div>
+<div >
+    <div class="heading">
+        <h2>
+            OK, LET'S START YOUR FREE VISIT
+
+        </h2>
+        <h1>
+            Please, introduce Yourself.
+        </h1>
+    </div>
+
+    <div class="form-container">
     <div class="form-group">
         <input placeholder="First Name" :class="{ error : name_error }" type="text" v-model="name">
         <p style="color: red" v-if="name_error">{{ name_error }}</p>
     </div>
-    <div class="form-group">
-        <input placeholder="Email Address" type="email" :class="{ error : email_error }" v-model="email">
-        <p style="color: red" v-if="email_error">{{ email_error }}</p>
+
+    <div class="two-col">
+        <div class="form-group">
+            <input placeholder="Email Address" type="email" :class="{ error : email_error }" v-model="email">
+            <p style="color: red" v-if="email_error">{{ email_error }}</p>
+        </div>
+
+        <div class="form-group">
+            <select v-model="MPA" :class="{ error : mpa_error }">
+                <option>Closest Metro</option>
+                <option v-for="mpa in MPA_selection"  :key="`MPA-${mpa.id}`" :value="mpa.id">{{ mpa.city_name }}</option>
+            </select>
+            <p style="color: red" v-if="mpa_error">{{ mpa_error }}</p>
+        </div>
     </div>
-    <div class="form-group">
-        <select v-model="MPA" :class="{ error : mpa_error }">
-            <option>Closest Metro</option>
-            <option v-for="mpa in MPA_selection"  :key="`MPA-${mpa.id}`" :value="mpa.id">{{ mpa.city_name }}</option>
-        </select>
-        <p style="color: red" v-if="mpa_error">{{ mpa_error }}</p>
-    </div>
+    
+    
     <div class="form-group">
         <select v-model="gender" :class="{ error : gender_error }">
             <option>--Gender--</option>
@@ -24,13 +41,15 @@
         <p style="color: red" v-if="gender_error">{{ gender_error }}</p>
     </div>
 
-    <div class="form-group">
+    <div class="form-group form-group-checkbox intro-checkbox">
         <input id="terms" type="checkbox" :true-value="true" v-model="agree">
         <label for="terms">I agree to the <a href="/terms" target="_blank">Terms and Conditions</a>, <a href="/privacy" target="_blank">Privacy Policy</a> and <a href="/telehealth" target="_blank">Telehealth Consent</a></label>
         <p style="color: red" v-if="terms_error">{{ terms_error }}</p>
     </div>
-
-    <button class="link" @click="validate">Submit</button>
+    </div>
+    <div class="actions">
+    <button class="link form-btn" @click="validate">Submit</button>
+    </div>
 
 
     
