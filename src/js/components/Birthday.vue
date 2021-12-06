@@ -55,7 +55,14 @@
 
         <div class="actions">
             <button @click="updateScreen(previous)" class="link form-btn form-btn-back">Back</button>
-            <button @click="store" class="link form-btn btn-long">Finish</button>
+            <button @click="store" class="link form-btn btn-long">
+                <template v-if="$store.state.user.gender == 'male'">
+                Finish
+                </template>
+                <template v-else>
+                    Next
+                </template>
+            </button>
         </div>
 
         

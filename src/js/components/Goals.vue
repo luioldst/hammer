@@ -3,7 +3,6 @@
         <div class="heading">
             <h2 class="h2-md">
                 YOU'RE AT THE BEST PART NOW!
-
             </h2>
             <h1 class="text-sans h1-md">
                 Help us understand your goals for the future.

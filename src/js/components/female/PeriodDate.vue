@@ -1,12 +1,25 @@
 <template>
     <div>
-        <h1>
-            First day of your
-last period?
-        </h1>
-        <div id="datepicker"></div>
-        <button @click="updateScreen('period')">Back</button>
-        <button @click="store">Next</button>
+        <div class="heading">
+            <h2 class="h2-md">
+                MENSTRUAL CYCLE
+
+            </h2>
+            <h1 class="text-sans h1-md">
+                First day of your last period?
+            </h1>
+        </div>
+
+        <div class="form-container">
+            <div id="datepicker"></div>
+        </div>
+
+        <div class="actions">
+            <button class="link form-btn form-btn-back" @click="updateScreen('period')">Back</button>
+            <button class="link form-btn btn-long" @click="store">Next</button>
+        </div>
+        
+        
     </div>
 </template>
 
@@ -31,9 +44,15 @@ export default {
         initDatepicker () {
             const elem = document.getElementById('datepicker');
             const datepicker = new Datepicker(elem, {
-                maxDate: new Date()
+                maxDate: new Date(),
+                nextArrow: '&#8250;',
+                prevArrow: '&#8249;',
+                defaultViewDate: new Date()
+                // todayHighlight: true
             // ...options
             });
+
+            datepicker.setDate(new Date());
 
             elem.addEventListener('changeDate', event => {
                 this.selected = moment(event.detail.date).format('YYYY-MM-DD');

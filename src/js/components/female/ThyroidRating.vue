@@ -1,6 +1,14 @@
 <template>
     <div>
-        
+        <div class="heading">
+            <h2 class="h2-md">
+                THYROID IMBALANCE
+
+            </h2>
+            <h1 class="text-sans h1-md">
+                Tell us about your symptom severity.
+            </h1>
+        </div>
         <symptoms-rating
             :urls="urls"
             local-key="estrogen-imbalance"

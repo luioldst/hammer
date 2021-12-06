@@ -1,13 +1,34 @@
 <template>
     <div>
-        <div class="form-group" v-for="item in selection" :key="`selection-${item.slug}`">
-            <label :for="`selection-${item.slug}`">{{ item.name }}</label>
-            <input :id="`selection-${item.slug}`" type="radio" name="period" v-model="selected" :value="item">
-            
+
+        <div class="heading">
+            <h2 class="h2-md">
+                MENSTRUAL CYCLE
+
+            </h2>
+            <h1 class="text-sans h1-md">
+                What best describes your period?
+            </h1>
         </div>
 
-        <button @click="updateScreen('birthday-female')">Back</button>
-        <button @click="store">Next</button>
+
+        <div class="form-container-inner form-container container-period">    
+            <div class="custom-column two-col">
+                <div v-for="item in selection" :key="`selection-${item.slug}`">
+                    <div class="form-group btn-selection" >
+                        
+                        <input :id="`selection-${item.slug}`" type="radio" name="period" v-model="selected" :value="item">
+                        <label :for="`selection-${item.slug}`">{{ item.name }}</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+
+        <div class="actions">
+            <button class="link form-btn form-btn-back" @click="updateScreen('birthday-female')">Back</button>
+            <button class="link form-btn" @click="store">Next</button>
+        </div>
     </div>
 </template>
 

@@ -2,7 +2,7 @@
     <div>
       <birthday 
         next="period"
-        previous=""
+        previous="/"
       ></birthday>
     </div>
 </template>

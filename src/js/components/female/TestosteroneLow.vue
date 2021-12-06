@@ -1,5 +1,15 @@
 <template>
     <div>
+        <div class="heading">
+            <h2 class="h2-md">
+                LOW TESTOSTERONE IMBALANCE
+
+            </h2>
+            <h1 class="text-sans h1-md">
+                What are Your Symptoms?
+            </h1>
+        </div>
+        
         <symptoms-selection
             :urls="urls"
             :selection="selection"

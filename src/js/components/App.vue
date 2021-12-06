@@ -37,6 +37,24 @@
 <script>
 export default {
 
+    methods: {
+        redirectUSer () {
+            let gender = localStorage.getItem('gender');
+            if (gender == 'male') {
+                window.location.href = `https://${location.hostname}/recommendation-mens`;
+            } else {
+                window.location.href = `https://${location.hostname}/recommendation-womens`;
+            }
+        }
+    },
+
+    watch: {
+        '$store.state.screen' (value) {
+            if (value == '/') {
+                window.location.replace(`https://${location.hostname}`);
+            }
+        }
+    }
     
 }
 </script>

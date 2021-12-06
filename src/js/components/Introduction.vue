@@ -79,11 +79,21 @@ export default {
     },
 
     created () {
-        this.getCMSData();
+
+        this.validateComponent ()
+
         
     },  
 
     methods: {
+        validateComponent () {
+            if (this.$store.state.username) {
+                console.log('HERE')
+                window.location.href = `https://${location.hostname}`
+            } else {
+                this.getCMSData();
+            }
+        },
         getCMSData () {
             $http.instance.get('/v1/router/mpa/').then (response => {
                 this.MPA_selection = response.data;

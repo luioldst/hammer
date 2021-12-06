@@ -61,8 +61,10 @@ export default {
             let valid = true;
             this.phone_error = '';
 
+            
 
-            if (!this.phone_error) {
+
+            if (!this.phone) {
                 this.phone_error = 'Contact number is required';
                 valid = false;
             }
@@ -95,9 +97,14 @@ export default {
                 localStorage.setItem('email', response.data.email);
                 localStorage.setItem('refresh', response.data.refresh);
                 localStorage.setItem('xx', response.data.user_id);
+            
                 
                 this.updateScreen(this.next);
             })
+        },
+
+        getPatientProfile () {
+            
         }
         
     }
