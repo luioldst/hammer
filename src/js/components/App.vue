@@ -3,6 +3,7 @@
 
         
         <recommendation-mens v-if="isRecommendationPage"></recommendation-mens>
+        
 
         <template v-else>
 
@@ -46,7 +47,7 @@
 export default {
 
     mounted () {
-        // this.redirectUSer();
+        this.redirectUSer();
     },
 
     methods: {

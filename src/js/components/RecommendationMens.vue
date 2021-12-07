@@ -18,6 +18,8 @@
                     <p >
                         Based on your stated goals of <span class="text-lowercase"> {{ goals.length ? goals.join(', ') : '0' }}</span> we can guide you toward an evidence-based, natural solution that's customized to your needs.
                     </p>
+
+                    <a href="https://thrivelab.zohobookings.com/#/customer/4079544000000970272" target="_blank" class="link black-button black-button-black-hover">Book your free consultation now</a>
                 </div>
             </div>
 
