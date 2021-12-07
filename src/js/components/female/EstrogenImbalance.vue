@@ -14,6 +14,8 @@
             :selection="selection"
             :previous-static="true"
         ></symptoms-selection>
+
+        <custom-progress :progress="29"></custom-progress>
     </div>
 </template>
 

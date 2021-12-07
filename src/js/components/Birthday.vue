@@ -54,7 +54,7 @@
         </div>
 
         <div class="actions">
-            <button @click="updateScreen(previous)" class="link form-btn form-btn-back">Back</button>
+            <button @click="handlePrevious" class="link form-btn form-btn-back">Back</button>
             <button @click="store" class="link form-btn btn-long">
                 <template v-if="$store.state.user.gender == 'male'">
                 Finish
@@ -86,6 +86,7 @@ export default {
             selected_month: 1,
             selected_day: 1,
             selected_year: '',
+            parsed_previous: ''
         }
     },
 
@@ -99,6 +100,11 @@ export default {
     },
 
     computed: {
+
+        parsedPrevious () {
+            
+        },
+
         years () {
             let start = 91 //current year minus 91 years
             let end = 32 //current year minus 32 years
@@ -135,6 +141,16 @@ export default {
     },
 
     methods: {
+
+        handlePrevious () {
+            let previous = this.previous;
+
+            if (previous == `${location.protocol}//${location.hostname}`) {
+                window.location.href = previous
+            } else {
+                this.updateScreen(previous)
+            }
+        },
 
         parseBirthday (birthday) {
             let parsed = birthday.split('-');

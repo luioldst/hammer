@@ -18,6 +18,8 @@
             <button class="link form-btn form-btn-back" @click="updateScreen('period')">Back</button>
             <button class="link form-btn btn-long" @click="store">Next</button>
         </div>
+
+        <custom-progress :progress="20"></custom-progress>
         
         
     </div>

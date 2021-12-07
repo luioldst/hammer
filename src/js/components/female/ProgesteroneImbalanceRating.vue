@@ -15,6 +15,8 @@
             :urls="urls"
             local-key="estrogen-imbalance"
         ></symptoms-rating>
+
+        <custom-progress :progress="39"></custom-progress>
     </div>
 </template>
 

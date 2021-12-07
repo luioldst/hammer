@@ -10,7 +10,7 @@
             </div>
         </div>
         <div class="actions">
-            <button @click="updateScreen(previous)" class="link form-btn form-btn-back">Back</button>
+            <button @click="handlePrevious" class="link form-btn form-btn-back">Back</button>
             <button @click="store" class="link form-btn">Next</button>
         </div>
     </div>
@@ -58,6 +58,18 @@ export default {
     },
 
     methods: {
+
+        handlePrevious () {
+            let previous = this.urls.previous;
+
+            if (previous == `${location.protocol}//${location.hostname}`) {
+                window.location.href = previous
+            } else {
+                this.updateScreen(previous)
+            }
+        },
+
+
         parseRawSelection () {
             this.selection_parsed = _.map(this.selection, item => {
                 return {

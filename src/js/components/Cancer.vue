@@ -32,9 +32,10 @@
 
         <div class="actions">
             <button @click="updateScreen('goals')" class="link form-btn form-btn-back">Back</button>
-            <button @click="store" class="link form-btn">Next</button>
+            <button @click="store" class="link form-btn btn-long">Next</button>
         </div>
 
+        <custom-progress :progress="80"></custom-progress>
         
     </div>
 </template>
@@ -53,7 +54,7 @@ export default {
 
     created () {
         if (this.$store.state.local['cancer']) {
-            this.selected = this.$store.state.local('cancer');
+            this.selected = this.$store.state.local['cancer'];
         }
         
     },

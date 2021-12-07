@@ -11,6 +11,7 @@
         <contact-number-male v-if="$store.state.screen == 'contact-number-male'"></contact-number-male>
         <contact-number-female v-if="$store.state.screen == 'contact-number-female'"></contact-number-female>
         <result v-if="$store.state.screen == 'result'"></result>
+        <sorry v-if="$store.state.screen == 'sorry'"></sorry>
 
         <birthday-female v-if="$store.state.screen == 'birthday-female'"></birthday-female>
         <period v-if="$store.state.screen == 'period'"></period>
@@ -30,30 +31,39 @@
         <thyroid v-if="$store.state.screen == 'thyroid'"></thyroid>
         <thyroid-rating v-if="$store.state.screen == 'thyroid-rating'"></thyroid-rating>
 
-        {{ $store.state.screen }}
+        
     </div>
 </template>
 
 <script>
 export default {
 
+    mounted () {
+        this.redirectUSer();
+    },
+
     methods: {
         redirectUSer () {
-            let gender = localStorage.getItem('gender');
-            if (gender == 'male') {
-                window.location.href = `https://${location.hostname}/recommendation-mens`;
-            } else {
-                window.location.href = `https://${location.hostname}/recommendation-womens`;
+            
+
+            if (localStorage.getItem('access')) {
+                let gender = localStorage.getItem('gender');
+                if (gender == 'male') {
+                    window.location.href = `${location.protocol}//${location.hostname}/recommendation-mens`;
+                } else {
+                    window.location.href = `${location.protocol}//${location.hostname}/recommendation-womens`;
+                }
             }
+            
         }
     },
 
     watch: {
-        '$store.state.screen' (value) {
-            if (value == '/') {
-                window.location.replace(`https://${location.hostname}`);
-            }
-        }
+        // '$store.state.screen' (value) {
+        //     if (value == '/') {
+        //         window.location.replace(`${location.protocol}://${location.hostname}`);
+        //     }
+        // }
     }
     
 }

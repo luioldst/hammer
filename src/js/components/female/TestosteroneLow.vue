@@ -14,6 +14,8 @@
             :urls="urls"
             :selection="selection"
         ></symptoms-selection>
+
+        <custom-progress :progress="49"></custom-progress>
     </div>
 </template>
 

@@ -1,6 +1,6 @@
 <template>
     <div>
-        <contact-number next="result" previous="birthday-male"></contact-number>
+        <contact-number next="result" :previous="$store.state.local['cancer_future'] ? 'sorry' : 'birthday-male'"></contact-number>
     </div>
 </template>
 

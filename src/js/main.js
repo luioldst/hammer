@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import store from './store';
 import App from './components/App.vue';
+import Sorry from './components/Sorry.vue';
 import Introduction from './components/Introduction.vue';
 import ThyroidImbalance from './components/ThyroidImbalance.vue';
 import ThyroidImbalanceRating from './components/ThyroidImbalanceRating.vue';
@@ -26,6 +27,8 @@ import TestosteroneHighRating from './components/female/TestosteroneHighRating.v
 
 import Thyroid from './components/female/Thyroid.vue';
 import ThyroidRating from './components/female/ThyroidRating.vue';
+import Progress from './components/Progress.vue';
+import Splash from './components/Splash.vue';
 
 
 // Components / female
@@ -54,7 +57,12 @@ Vue.component('goals', Goals);
 Vue.component('cancer', Cancer);
 Vue.component('birthday-male', BirthdayMale);
 Vue.component('contact-number-male', ContactNumberMale);
+
+// General
 Vue.component('result', Result);
+Vue.component('custom-progress', Progress);
+Vue.component('sorry', Sorry);
+Vue.component('splash', Splash);
 
 new Vue({
   el: '#app',

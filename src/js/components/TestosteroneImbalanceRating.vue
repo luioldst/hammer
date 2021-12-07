@@ -14,6 +14,8 @@
             :urls="urls"
             local-key="thyroid-imbalance"
         ></symptoms-rating>
+
+        <custom-progress :progress="29"></custom-progress>
     </div>
 </template>
 

@@ -21,8 +21,10 @@
         </div>
         <div class="actions">
             <button @click="updateScreen(previous)" class="link form-btn form-btn-back">Back</button>
-            <button @click="store" class="link form-btn">Next</button>
+            <button @click="store" class="link form-btn btn-long">Next</button>
         </div>
+
+        <custom-progress :progress="$store.state.user.gender == 'male' ? 60 : 75"></custom-progress>
     </div>
 </template>
 

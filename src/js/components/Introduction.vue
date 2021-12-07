@@ -24,7 +24,7 @@
 
         <div class="form-group">
             <select v-model="MPA" :class="{ error : mpa_error }">
-                <option>Closest Metro</option>
+                <option value="Closest Metro" selected>Closest Metro</option>
                 <option v-for="mpa in MPA_selection"  :key="`MPA-${mpa.id}`" :value="mpa.id">{{ mpa.city_name }}</option>
             </select>
             <p style="color: red" v-if="mpa_error">{{ mpa_error }}</p>
@@ -34,7 +34,7 @@
     
     <div class="form-group">
         <select v-model="gender" :class="{ error : gender_error }">
-            <option>--Gender--</option>
+            <option value="--Gender--">--Gender--</option>
             <option value="male">Male</option>
             <option value="female">Female</option>
         </select>
@@ -48,7 +48,7 @@
     </div>
     </div>
     <div class="actions">
-    <button class="link form-btn" @click="validate">Submit</button>
+        <button class="link form-btn btn-long" @click="validate">Next</button>
     </div>
 
 
@@ -60,12 +60,16 @@
 <script>
 const _ = require('lodash');
 import $http from './../api.service';
+
+const GENDER_DEFAULT = '--Gender--';
+const MPA_DEFAULT = 'Closest Metro';
+
 export default {
     data () {
         return {
             name: '',
-            gender: 'male',
-            MPA: '',
+            gender: GENDER_DEFAULT,
+            MPA: MPA_DEFAULT,
             email: '',
             MPA_selection: [],
             agree: false,
@@ -79,25 +83,14 @@ export default {
     },
 
     created () {
-
-        this.validateComponent ()
-
-        
+        this.getCMSData();
     },  
 
     methods: {
-        validateComponent () {
-            if (this.$store.state.username) {
-                console.log('HERE')
-                window.location.href = `https://${location.hostname}`
-            } else {
-                this.getCMSData();
-            }
-        },
         getCMSData () {
             $http.instance.get('/v1/router/mpa/').then (response => {
                 this.MPA_selection = response.data;
-                this.populateLocally();
+                // this.populateLocally();
             });
 
             if (this.$store.state.username) {
@@ -106,7 +99,7 @@ export default {
                         key: 'user',
                         data: response.data.user_data
                     });
-                    this.populateLocally();
+                    // this.populateLocally();
                 });
 
                 
@@ -138,12 +131,12 @@ export default {
                 valid = false;
             }
 
-            if (!this.MPA) {
+            if (!this.MPA || this.MPA == MPA_DEFAULT) {
                 this.mpa_error = 'Metro is required';
                 valid = false;
             }
 
-            if (!this.gender) {
+            if (!this.gender || this.gender == GENDER_DEFAULT) {
                 this.gender_error = 'Gender is required';
                 valid = false;
             }

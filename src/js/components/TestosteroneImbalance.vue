@@ -10,14 +10,13 @@
                 Ever experience any of the following?
             </h1>
         </div>
-
-
-        
         
         <symptoms-selection
             :urls="urls"
             :selection="selection"
         ></symptoms-selection>
+
+        <custom-progress :progress="29"></custom-progress>
     </div>
 </template>
 

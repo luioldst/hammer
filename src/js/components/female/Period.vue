@@ -29,6 +29,8 @@
             <button class="link form-btn form-btn-back" @click="updateScreen('birthday-female')">Back</button>
             <button class="link form-btn" @click="store">Next</button>
         </div>
+
+        <custom-progress :progress="20"></custom-progress>
     </div>
 </template>
 

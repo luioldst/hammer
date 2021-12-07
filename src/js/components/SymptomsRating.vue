@@ -49,7 +49,7 @@
   
         <div class="actions">
             <button class="link form-btn form-btn-back" @click="updateScreen(urls.previous)">Back</button>
-            <button class="link form-btn" @click="validate">Next</button>
+            <button class="link form-btn btn-long" @click="validate">Next</button>
         </div>
     </div>
 </template>
