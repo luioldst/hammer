@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div style="padding-top: 50px;">
         <div class="heading">
             <img src="https://uploads-ssl.webflow.com/6172279814cf5440b9aec966/61af04bce7f1b7da9d7a5396_Thrivelab_Hello_b5qvbt_wrtcqb.svg">
             <h2 class="h2-md">

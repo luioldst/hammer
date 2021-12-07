@@ -1,5 +1,11 @@
 <template>
     <div class="app">
+
+        
+        <recommendation-mens v-if="isRecommendationPage"></recommendation-mens>
+
+        <template v-else>
+
         <introduction v-if="$store.state.screen == 'introduction'"></introduction>
         <thyroid-imbalance v-if="$store.state.screen == 'thyroid-imbalance'"></thyroid-imbalance>
         <thyroid-imbalance-rating v-if="$store.state.screen == 'thyroid-imbalance-rating'"></thyroid-imbalance-rating>
@@ -30,6 +36,7 @@
 
         <thyroid v-if="$store.state.screen == 'thyroid'"></thyroid>
         <thyroid-rating v-if="$store.state.screen == 'thyroid-rating'"></thyroid-rating>
+        </template>
 
         
     </div>
@@ -39,7 +46,7 @@
 export default {
 
     mounted () {
-        this.redirectUSer();
+        // this.redirectUSer();
     },
 
     methods: {
@@ -55,6 +62,18 @@ export default {
                 }
             }
             
+        }
+    },
+
+    computed: {
+        isRecommendationPage () {
+            let recommendation = false;
+
+            if (window.location.href.indexOf('recommendation') !== -1) {
+                recommendation = true;
+            }
+
+            return recommendation;
         }
     },
 

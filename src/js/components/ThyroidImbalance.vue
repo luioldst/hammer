@@ -1,7 +1,7 @@
 <template>
     <div>
-        <splash v-if="seconds > 0"></splash>
-        <template v-else>
+        <splash v-show="seconds > 0"></splash>
+        <div v-show="seconds < 1">
             <div class="heading">
                 <h2 class="h2-md">
                     YOUR ANSWERS ARE CRUCIAL TO GENERATE RECOMMENDATIONS!
@@ -12,6 +12,7 @@
                 </h1>
             </div>
 
+
             
             <symptoms-selection
                 :urls="urls"
@@ -19,7 +20,7 @@
             ></symptoms-selection>
 
             <custom-progress :progress="19"></custom-progress>
-        </template>
+        </div>
         
         
     </div>

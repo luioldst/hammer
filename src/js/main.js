@@ -24,6 +24,7 @@ import TestosteroneLow from './components/female/TestosteroneLow.vue';
 import TestosteroneLowRating from './components/female/TestosteroneLowRating.vue';
 import TestosteroneHigh from './components/female/TestosteroneHigh.vue';
 import TestosteroneHighRating from './components/female/TestosteroneHighRating.vue';
+import RecommendationMens from './components/RecommendationMens.vue';
 
 import Thyroid from './components/female/Thyroid.vue';
 import ThyroidRating from './components/female/ThyroidRating.vue';
@@ -53,6 +54,7 @@ Vue.component('thyroid-imbalance', ThyroidImbalance);
 Vue.component('thyroid-imbalance-rating', ThyroidImbalanceRating);
 Vue.component('testosterone-imbalance', TestosteroneImbalance);
 Vue.component('testosterone-imbalance-rating', TestosteroneImbalanceRating);
+Vue.component('recommendation-mens', RecommendationMens);
 Vue.component('goals', Goals);
 Vue.component('cancer', Cancer);
 Vue.component('birthday-male', BirthdayMale);
