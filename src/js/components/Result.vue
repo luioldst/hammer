@@ -15,36 +15,17 @@ export default {
 
     data () {
         return {
-            user: {},
-            cookies: []
+            user: {}
         }
     },
     
 
     methods: {
 
-        breakdownCookie () {
-            let cookies = document.cookies.split('; ');
-
-            if (cookies.length > 1) {
-                cookies.forEach( (item, index) => {
-
-                    if(index > 0) {
-                        let value = item.split('=');
-
-                        this.cookies.push([value[0], value[1]]);
-                    }
-                    
-                })
-            }
-
-            console.log(this.cookies);
-        },
-
         getUser () {
             let self = this;
             axios.get(`${$http.loggedInUrl}/v1/patient-profile/`, { 
-                headers: { Authorization: `Bearer ${document.getItem('access')}` }
+                headers: { Authorization: `Bearer ${localStorage.getItem('access')}` }
             }).then ( response => {
                 let patient = response.data[0];
                 this.user = response.data[0];
