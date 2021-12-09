@@ -37,7 +37,6 @@
   "dependencies": {
     "and": "0.0.3",
     "axios": "^0.24.0",
-    "bootstrap": "^5.1.0",
     "ismobilejs": "^1.1.1",
     "lodash": "^4.17.21",
     "moment": "^2.29.1",
