@@ -52,6 +52,7 @@ export default {
 
     methods: {
         redirectUSer () {
+            console.log(localStorage.getItem('access'), !this.isRecommendationPage)
             if (localStorage.getItem('access') && !this.isRecommendationPage) {
                 let gender = localStorage.getItem('gender');
                 if (gender == 'male') {
