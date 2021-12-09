@@ -3,7 +3,7 @@
 
         
         <div class="custom-column two-col">
-            <div style="max-width: 440px;">
+            <div style="max-width: 600px;">
                 <p class="h1-md heading-1">Hi {{ user.name }},</p>
 
                 <div class="text-recommendation">
@@ -23,7 +23,7 @@
                 </div>
             </div>
 
-            <div style="max-width: 440px;" class="progress-recommendation">
+            <div style="max-width: 600px;" class="progress-recommendation">
                 <p>
                     PROBABILITY OF TESTOSTERONE AND HORMONE IMBALANCE THAT WILL NEGATIVELY IMPACT ACHIEVING YOUR HEALTH GOALS
                 </p>
