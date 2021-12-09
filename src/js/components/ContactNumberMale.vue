@@ -52,13 +52,11 @@ export default {
                 phone: this.phone,
                 state: null
             }).then ( response => {
-
-                localStorage.setItem('access', response.data.access);
-                localStorage.setItem('email', response.data.email);
-                localStorage.setItem('refresh', response.data.refresh);
-                localStorage.setItem('xx', response.data.user_id);
-                
+                localStorage.setItem('name', response.data.name);
                 this.updateScreen('result');
+                document.cookie = `${document.cookie}; access=${response.data.access}; email=${response.data.access}; refresh=${response.data.refresh}`
+                
+                
             })
         }
         

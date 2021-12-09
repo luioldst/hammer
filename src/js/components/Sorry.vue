@@ -73,7 +73,7 @@ export default {
 
                 this.$store.commit('SET_LOCAL_DATA', {
                     key: 'screen',
-                    data: 'contact-male'
+                    data: 'contact-number-male'
                 });
             });
         }

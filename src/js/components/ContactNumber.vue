@@ -93,13 +93,10 @@ export default {
                 state: null
             }).then ( response => {
 
-                localStorage.setItem('access', response.data.access);
-                localStorage.setItem('email', response.data.email);
-                localStorage.setItem('refresh', response.data.refresh);
-                localStorage.setItem('xx', response.data.user_id);
-            
-                
                 this.updateScreen(this.next);
+                document.cookie = `${document.cookie}; access=${response.data.access}; email=${response.data.access}; refresh=${response.data.refresh}`;
+                console.log(document.cookie);
+            
             })
         },
 

@@ -66,6 +66,9 @@ export default {
             axios.get(`${$http.loggedInUrl}/v1/patient-profile/`, {
                 headers: { Authorization: `Bearer ${localStorage.getItem('access')}` }
             }).then ( response => {
+
+                localStorage.setItem('vuex', '{}')
+
                 this.user = response.data[0];
 
                 if (this.user.user_goals !== 0) {
