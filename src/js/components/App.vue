@@ -52,20 +52,16 @@ export default {
 
     methods: {
         redirectUSer () {
-            console.log(document.cookie);
-            // if (localStorage.getItem('access') && !this.isRecommendationPage) {
-            //     alert('HERE');
-            //     let gender = localStorage.getItem('gender');
-            //     if (gender == 'male') {
-            //         alert('recommendation')
-            //         // window.location.href = `${location.protocol}//${location.hostname}/recommendation-mens`;
-            //     } else {
-            //         alert('recommendation')
-            //         // window.location.href = `${location.protocol}//${location.hostname}/recommendation-womens`;
-            //     }
-            // } else {
+            if (localStorage.getItem('access') && !this.isRecommendationPage) {
+                let gender = localStorage.getItem('gender');
+                if (gender == 'male') {
+                    window.location.href = `${location.protocol}//${location.hostname}/recommendation-mens`;
+                } else {
+                    window.location.href = `${location.protocol}//${location.hostname}/recommendation-womens`;
+                }
+            } else {
 
-            // }
+            }
             
         }
     },
