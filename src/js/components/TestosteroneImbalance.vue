@@ -48,7 +48,6 @@ export default {
         getCMSData () {
             $http.instance.get('/v1/desease-read-only/male/').then ( response => {
                 _.forEach(response.data, item => {
-                    console.log(this.urls['cms_slug']);
                     if (item.slug == this.urls['cms_slug']) {
                         this.selection = item.symptoms_des;
                     }

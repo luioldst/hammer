@@ -62,12 +62,20 @@ export default {
     },
 
     mounted () {
-        this.getUser();
-        this.getTopThree();
-        this.getRatings();
+        this.validateRoute();
     },
 
     methods: {
+
+        validateRoute () {
+            if (!localStorage.getItem('access')) {
+                window.location.href = '/free-hormone-assessment'
+            } else {
+                this.getUser();
+                this.getTopThree();
+                this.getRatings();
+            }
+        },
 
         listDown (arr = []) {
             return new Intl.ListFormat('en').format(arr);
