@@ -12,11 +12,15 @@
                     </p>
 
                     <p class="text-lowercase">
-                        It appears that your {{ top_three.join( ', ' ) }} levels are significantly compromised.
+                        It appears that {{ top_three.length ? `your ${listDown(top_three)} levels are` : 'none is' }}  significantly compromised.
                     </p>
 
-                    <p >
-                        Based on your stated goals of <span class="text-lowercase"> {{ goals.length ? goals.join(', ') : '0' }}</span> we can guide you toward an evidence-based, natural solution that's customized to your needs.
+                    <p v-if="gender == 'male'">
+                        Based on your stated goals of <span class="text-lowercase"> {{ goals.length ? listDown(goals) : '0' }}</span> we can guide you toward an evidence-based, natural solution that's customized to your needs.
+                    </p>
+
+                    <p v-else>
+                        There is absolutely no reason for you to continue suffering with {{ symptoms.length ? listDown(symptoms) : '0' }} when you have the best evidence-based natural hormone therapy available to you.
                     </p>
 
                     <a href="https://thrivelab.zohobookings.com/#/customer/4079544000000970272" target="_blank" class="link black-button black-button-black-hover">Book your free consultation now</a>
@@ -30,9 +34,9 @@
 
                 <div v-for="(rating, key) in ratings" :key="key" class="ratings-recommendation-bar">
                     <p class="bar__title">{{ key }}</p>
-                    <div :style="{ width: `${rating*10}px` }"></div>
+                    <div :style="{ width: `${ rating < 10 ? rating*10 : 99 }%` }"></div>
 
-                    <p class="bar__percentage">{{ rating*10 }}%</p>
+                    <p class="bar__percentage">{{ rating < 10 ? rating*10 : 99 }}%</p>
                 </div>
             </div>
         </div>
@@ -51,7 +55,9 @@ export default {
             top_three: [],
             user: {},
             goals: [],
-            ratings: {}
+            ratings: {},
+            symptoms: [],
+            gender: localStorage.getItem('gender')
         }
     },
 
@@ -62,6 +68,11 @@ export default {
     },
 
     methods: {
+
+        listDown (arr = []) {
+            return new Intl.ListFormat('en').format(arr);
+        },
+
         getUser () {
             axios.get(`${$http.loggedInUrl}/v1/patient-profile/`, {
                 headers: { Authorization: `Bearer ${localStorage.getItem('access')}` }
@@ -76,6 +87,10 @@ export default {
                         return item.goals_assig
                     })
                 }
+
+                
+
+
             }); 
         },
 
@@ -84,6 +99,10 @@ export default {
                 headers: { Authorization: `Bearer ${localStorage.getItem('access')}` }
             }).then ( response => {
                 this.ratings = response.data;
+
+                Object.keys(response.data).forEach ( (item, key) => {
+                    this.symptoms.push(item)
+                } )
             });
         },
 
@@ -91,8 +110,11 @@ export default {
             axios.get(`${$http.loggedInUrl}/v1/Patient-top-three-symptoms/`, {
                 headers: { Authorization: `Bearer ${localStorage.getItem('access')}` }
             }).then ( response => {
-                this.top_three = response.data.map ( item => {
-                    return item.extra.disease;
+                response.data.forEach ( item => {
+                    if (this.top_three.indexOf(item.extra.disease) == -1) {
+                        this.top_three.push(item.extra.disease)
+                        
+                    }
                 });
             }); 
         }

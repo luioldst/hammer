@@ -479,6 +479,15 @@ label {
     text-transform: lowercase;
 }
 
+.progress-recommendation {
+    & > p {
+        border-bottom: 1px solid #cfaa8c;
+        padding-bottom: 10px;
+        font-family: Sackersgothicstd, sans-serif;
+        font-size: 12px;
+    }
+}
+
 .text-recommendation {
     font-size: 18px;
     line-height: 1.5;
@@ -549,5 +558,9 @@ label {
             z-index: 1;
         }
     }
+}
+
+.black-button {
+    text-align: left;
 }
 

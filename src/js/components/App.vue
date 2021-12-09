@@ -1,10 +1,9 @@
 <template>
     <div class="app">
 
-        
         <recommendation-mens v-if="isRecommendationPage"></recommendation-mens>
         
-
+    
         <template v-else>
 
         <introduction v-if="$store.state.screen == 'introduction'"></introduction>

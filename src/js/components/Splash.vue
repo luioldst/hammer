@@ -5,7 +5,7 @@
             <h2 class="h2-md">
                 NICE TO MEET YOU
             </h2>
-            <h1 class="h1-intro h1-lg" style="max-width: 350px; line-height: 1.2">
+            <h1 class="h1-intro h1-lg" style="max-width: 350px; line-height: 1.2; font-size: 25px;">
                 Hi {{ $store.state.user.name }}!<br>
                 Let's learn a little about you.
             </h1>
