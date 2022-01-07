@@ -574,6 +574,11 @@ label {
 }
 
 @media screen and (max-width: 600px) {
+
+    .heading .h1-lg {
+        font-size: 36px;
+      }
+
     .custom-column > div {
         width: 100%;
     }
