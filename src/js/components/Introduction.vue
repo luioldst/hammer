@@ -171,12 +171,12 @@ export default {
 
                 this.$store.commit('SET_LOCAL_DATA', {
                     key: 'username',
-                    data: response.data.user_data.slug
+                    data: response.data.slug
                 });
 
                 this.$store.commit('SET_LOCAL_DATA', {
                     key: 'user',
-                    data: response.data.user_data
+                    data: response.data
                 })
             }).catch( error => {
 
