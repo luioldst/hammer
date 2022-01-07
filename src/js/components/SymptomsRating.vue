@@ -12,9 +12,11 @@
 
             <tbody>
                 <tr v-for="(symptom, index) in symptoms" :key="`symptom-${symptom.id}`">
-                    <td>{{ symptom.titel }}</td>
+                    <td><div><span class="symptoms-table-th-mobile">Symptom*</span>{{ symptom.titel }}</div></td>
                     <td>
-
+                        <div>
+                        <span class="symptoms-table-th-mobile">Severity*</span>
+                        
                         <div class="rating-selection" style="">
                             <div v-for="rating in rating_max" :key="`rating-${rating}`">
                                 <div class="form-group btn-selection btn-circle" >
@@ -24,19 +26,18 @@
                                 </div>
                             </div>
                         </div>
-
-<!--       
-                        <div class="form-group" v-for="rating in rating_max" :key="`rating-${rating}`">
-                            <label :for="`symptom-${symptom.id}-severity`">{{ rating }}</label>
-                            <input type="radio" :name="`severity-${symptom.id}`" :id="`symptom-${symptom.id}-severity`" :value="rating" v-model="symptoms[index]['rating_symptom']">
-                        </div> -->
+                        </div>
 
                         <p class="error" v-if="symptoms[index].rating_error" style="color: red">Rating is required.</p>
                     </td>
                     <td>
-                        <select v-model="symptoms[index].history_symptom" >
-                            <option :value="item.id" v-for="item in history" :key="item.cms_slug">{{ item.history }}</option>
-                        </select>
+                        
+                        <div>
+                            <span class="symptoms-table-th-mobile">History*</span>
+                            <select v-model="symptoms[index].history_symptom" >
+                                <option :value="item.id" v-for="item in history" :key="item.cms_slug">{{ item.history }}</option>
+                            </select>
+                        </div>
 
 
                         <p class="error" v-if="symptoms[index].history_error" style="color: red">History is required.</p>

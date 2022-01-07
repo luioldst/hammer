@@ -9,7 +9,7 @@
             </h1>
         </div>
         <div class="form-container-inner form-container">    
-            <div class="custom-column four-col">
+            <div class="custom-column four-col min-two-col">
                 <div v-for="item in selection" :key="`selection-${item.id}`">
                     <div class="form-group btn-selection" >
                         <input :id="`selection-${item.id}`" type="checkbox" v-model="selected" :value="item">

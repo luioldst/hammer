@@ -13,7 +13,7 @@
 
 
         <div class="form-container-inner form-container container-period">    
-            <div class="custom-column two-col">
+            <div class="custom-column two-col min-two-col">
                 <div v-for="item in selection" :key="`selection-${item.slug}`">
                     <div class="form-group btn-selection" >
                         
@@ -26,7 +26,7 @@
         
 
         <div class="actions">
-            <button class="link form-btn form-btn-back" @click="updateScreen('birthday-female')">Back</button>
+            <button class="link form-btn form-btn-back btn-wide" @click="updateScreen('birthday-female')">Back</button>
             <button class="link form-btn" @click="store">Next</button>
         </div>
 
