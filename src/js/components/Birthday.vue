@@ -28,7 +28,7 @@
 
                 <div>
                     <div class="form-group btn-select" >
-                        <label for="day">Days</label>
+                        <label for="day">Day</label>
                         <div class="select-wrapper">
                             <select id="day" v-model="selected_day">
                                 <option v-for="day in days" :value="day" :key="`day-${day}`">{{ day }}</option>
