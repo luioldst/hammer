@@ -48,7 +48,8 @@
     </div>
     </div>
     <div class="actions">
-        <button class="link form-btn btn-long" @click="validate">Next</button>
+        <button v-if="!sending" class="link form-btn btn-long" @click="validate">Next</button>
+        <button v-else disabled class="link form-btn btn-long">Submitting...</button>
     </div>
 
 
@@ -78,7 +79,8 @@ export default {
             email_error: '',
             mpa_error: '',
             gender_error: '',
-            terms_error: ''
+            terms_error: '',
+            sending: false
         }
     },
 
@@ -171,12 +173,12 @@ export default {
 
                 this.$store.commit('SET_LOCAL_DATA', {
                     key: 'username',
-                    data: response.data.slug
+                    data: response.data.user_data.slug
                 });
 
                 this.$store.commit('SET_LOCAL_DATA', {
                     key: 'user',
-                    data: response.data
+                    data: response.data.user_data
                 })
             }).catch( error => {
 
