@@ -586,20 +586,8 @@ label {
       }
 }
 
+@media screen and (max-width: 767px) {
 
-@media screen and (max-width: 600px) {
-
-    
-
-    
-
-    .custom-column > div {
-        width: 100%;
-    }
-
-    .symptoms-table-th-mobile {
-        display: block;
-    }
 
     .custom-column.min-two-col > div {
         width: 50%;
@@ -609,6 +597,24 @@ label {
             width: 100%;
         }
     }
+}
+
+
+@media screen and (max-width: 600px) {
+
+    .custom-column > div {
+        width: 100%;
+    }
+
+    
+
+    
+
+    .symptoms-table-th-mobile {
+        display: block;
+    }
+
+    
 
     .table-symptoms {
         thead {
