@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div data-page="goals">
         <div class="heading">
             <h2 class="h2-md">
                 YOU'RE AT THE BEST PART NOW!
