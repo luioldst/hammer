@@ -88,6 +88,10 @@ export default {
         this.getCMSData();
     },  
 
+    mounted () {
+        // console.log(handleVisit())
+    },
+
     methods: {
         getCMSData () {
             $http.instance.get('/v1/router/mpa/').then (response => {
@@ -164,7 +168,8 @@ export default {
                 Traffic_Source: '',
                 gender: this.gender,
                 name: this.name,
-                user_fake_profile: this.email
+                user_fake_profile: this.email,
+                url: localStorage.getItem('first_visit_url')
             }).then ( response => {
                 this.$store.commit('SET_LOCAL_DATA', {
                     key: 'screen',
