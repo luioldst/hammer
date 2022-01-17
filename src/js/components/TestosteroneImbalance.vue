@@ -1,7 +1,7 @@
 <template>
     <div>
 
-        <div class="heading" data-page="testosterone-imbalance">
+        <div class="heading" data-page="imbalances">
             <h2 class="h2-md">
                 HAIR LOSS AND FATIGUE ARE LINKED TO THYROID DYSFUNCTION.
 

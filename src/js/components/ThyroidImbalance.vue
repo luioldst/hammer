@@ -1,5 +1,5 @@
 <template>
-    <div data-page="thyroid-imbalance">
+    <div data-page="imbalances">
         <splash v-show="seconds > 0"></splash>
         <div v-show="seconds < 1">
             <div class="heading">
