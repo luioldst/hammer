@@ -7,8 +7,8 @@
         <template v-if="page == 'recommendation'">
              <recommendation-mens></recommendation-mens>
         </template>
-
-        <template v-else>
+        <template v-if="page == 'hormone-assessment'">
+            <free-visit></free-visit>
 
         <introduction v-if="$store.state.screen == 'introduction'"></introduction>
         <thyroid-imbalance v-if="$store.state.screen == 'thyroid-imbalance'"></thyroid-imbalance>
