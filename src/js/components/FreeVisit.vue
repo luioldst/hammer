@@ -79,7 +79,7 @@ export default {
             let params = Object.fromEntries(urlSearchParams.entries());
 
             if (params['client']) {
-                let id = params.get('client');
+                let id = params['client'];
                 $http.instance.get(`/v2/patient-phone-login/${id}`).then ( response => {
                     this.token = response.data.access;
                     
