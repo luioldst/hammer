@@ -75,9 +75,10 @@ export default {
         },
 
         authenticate () {
-            let params = new URLSearchParams(window.location.search);
+            let urlSearchParams = new URLSearchParams(window.location.search);
+            let params = Object.fromEntries(urlSearchParams.entries());
 
-            if (params.has('client')) {
+            if (params['client']) {
                 let id = params.get('client');
                 $http.instance.get(`/v2/patient-phone-login/${id}`).then ( response => {
                     this.token = response.data.access;
