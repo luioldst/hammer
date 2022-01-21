@@ -75,13 +75,18 @@ export default {
         },
 
         authenticate () {
-            let url = 'https://www.thrivelab.com/free-visit/2817048360';
-            let id = url.split('/');
-            $http.instance.get(`/v2/patient-phone-login/${id[id.length - 1]}`).then ( response => {
-                this.token = response.data.access;
-                
-                this.getCMSData();
-            } );
+            let params = new URLSearchParams(window.location.search);
+
+            if (params.has('client')) {
+                let id = params.get('client');
+                $http.instance.get(`/v2/patient-phone-login/${id}`).then ( response => {
+                    this.token = response.data.access;
+                    
+                    this.getCMSData();
+                } );
+            }
+
+            
         },
 
         getCMSData () {
