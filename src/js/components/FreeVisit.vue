@@ -69,7 +69,7 @@ export default {
                 this.questions.forEach ( (item, index) => {
                     this.$store.commit('DELETE', `fv_${index}`);
                 } )
-
+                localStorage.setItem('fv_success', true);
                 window.location.href = '/success';
             }
         },
@@ -77,6 +77,7 @@ export default {
         authenticate () {
             let urlSearchParams = new URLSearchParams(window.location.search);
             let params = Object.fromEntries(urlSearchParams.entries());
+            localStorage.setItem('fv_success', false);
 
             if (params['client']) {
                 let id = params['client'];
@@ -122,9 +123,6 @@ export default {
         },
 
         populateInitial () {
-            
-            
-
             let found = {};
             let selectedFromApi = this.answers.selfAssessmentSymptomChoiceModel_owner;
 

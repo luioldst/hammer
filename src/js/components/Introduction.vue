@@ -165,7 +165,7 @@ export default {
                 gender: this.gender,
                 name: this.name,
                 user_fake_profile: this.email,
-                url: localStorage.getItem('first_visit_url')
+                url: decodeURIComponent(localStorage.getItem('first_visit_url'))
             }).then ( response => {
                 this.$store.commit('SET_LOCAL_DATA', {
                     key: 'screen',
