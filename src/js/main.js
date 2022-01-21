@@ -25,6 +25,7 @@ import TestosteroneLowRating from './components/female/TestosteroneLowRating.vue
 import TestosteroneHigh from './components/female/TestosteroneHigh.vue';
 import TestosteroneHighRating from './components/female/TestosteroneHighRating.vue';
 import RecommendationMens from './components/RecommendationMens.vue';
+import FreeVisit from './components/FreeVisit.vue';
 
 import Thyroid from './components/female/Thyroid.vue';
 import ThyroidRating from './components/female/ThyroidRating.vue';
@@ -65,6 +66,7 @@ Vue.component('result', Result);
 Vue.component('custom-progress', Progress);
 Vue.component('sorry', Sorry);
 Vue.component('splash', Splash);
+Vue.component('free-visit', FreeVisit);
 
 new Vue({
   el: '#app',

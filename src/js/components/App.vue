@@ -1,10 +1,15 @@
 <template>
     <div class="app">
 
-        <recommendation-mens v-if="isRecommendationPage"></recommendation-mens>
-        
-    
+        <template v-if="page == 'free-visit'">
+            <free-visit></free-visit>
+        </template>
+        <template v-if="page == 'recommendation'">
+             <recommendation-mens></recommendation-mens>
+        </template>
+
         <template v-else>
+            <free-visit></free-visit>
 
         <introduction v-if="$store.state.screen == 'introduction'"></introduction>
         <thyroid-imbalance v-if="$store.state.screen == 'thyroid-imbalance'"></thyroid-imbalance>
@@ -66,14 +71,18 @@ export default {
     },
 
     computed: {
-        isRecommendationPage () {
-            let recommendation = false;
+        page () {
+            let page = '';
 
             if (window.location.href.indexOf('recommendation') !== -1) {
-                recommendation = true;
+                page = 'recommendation'
+            } else if (window.location.href.indexOf('hormone-assessment') !== -1) {
+                page = 'assessment'
+            } else {
+                page = 'free visit'
             }
 
-            return recommendation;
+            return page;
         }
     },
 

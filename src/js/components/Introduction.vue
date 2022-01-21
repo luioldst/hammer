@@ -88,10 +88,6 @@ export default {
         this.getCMSData();
     },  
 
-    mounted () {
-        // console.log(handleVisit())
-    },
-
     methods: {
         getCMSData () {
             $http.instance.get('/v1/router/mpa/').then (response => {

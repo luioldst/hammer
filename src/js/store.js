@@ -21,6 +21,10 @@ export default new Vuex.Store({
     mutations: {
         SET_LOCAL_DATA (state, value) {
             state[value.key] = value.data;
+        },
+
+        DELETE (state, value) {
+            state[value] && delete state[value]
         }
     }
 })
