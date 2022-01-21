@@ -85,6 +85,8 @@ export default {
                     
                     this.getCMSData();
                 } );
+            } else {
+                window.location.href = '/';
             }
 
             
