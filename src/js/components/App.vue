@@ -9,7 +9,6 @@
         </template>
 
         <template v-else>
-            <free-visit></free-visit>
 
         <introduction v-if="$store.state.screen == 'introduction'"></introduction>
         <thyroid-imbalance v-if="$store.state.screen == 'thyroid-imbalance'"></thyroid-imbalance>
