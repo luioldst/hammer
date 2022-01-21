@@ -80,7 +80,7 @@ export default {
                 page = 'free-visit'
             }
 
-            console.log()
+            console.log(page);
 
             return page;
         }
