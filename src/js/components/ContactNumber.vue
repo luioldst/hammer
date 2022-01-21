@@ -92,7 +92,7 @@ export default {
                 phone: this.phone,
                 state: null
             }).then ( response => {
-
+                this.$store.state.assessment = 'done';
                 localStorage.setItem('access', response.data.access);
                 localStorage.setItem('email', response.data.email);
                 localStorage.setItem('refresh', response.data.refresh);

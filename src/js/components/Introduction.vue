@@ -171,6 +171,10 @@ export default {
                     key: 'screen',
                     data: this.gender == 'male' ? 'thyroid-imbalance' : 'birthday-female'
                 });
+                this.$store.commit('SET_LOCAL_DATA', {
+                    key: 'assessment',
+                    data: 'ongoing'
+                });
 
                 this.$store.commit('SET_LOCAL_DATA', {
                     key: 'username',
