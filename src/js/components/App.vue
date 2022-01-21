@@ -78,8 +78,10 @@ export default {
             } else if (window.location.href.indexOf('hormone-assessment') !== -1) {
                 page = 'assessment'
             } else {
-                page = 'free visit'
+                page = 'free-visit'
             }
+
+            console.log()
 
             return page;
         }
