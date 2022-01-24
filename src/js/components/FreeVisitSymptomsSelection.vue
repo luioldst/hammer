@@ -98,7 +98,6 @@ export default {
     methods: {
 
         handleChange (event) {
-            console.log(event.target.checked);
             if (!event.target.checked) {
                 
                 this.$emit('delete', event.target.id.split('-')[1]);
@@ -146,15 +145,15 @@ export default {
         store () {
 
             if (!this.selected.length) {
-                console.log('NO SEEKECTO')
                 this.updateData();
             } else {
-                console.log('YES SEEKECTO')
                 this.storeLocally(this.selected)
             }
         },
 
         updateData () {
+
+            this.$emit('loading', true)
 
             $http.instance.post(`/v2/self-assessment-report-choices/`, [], {
                 headers: {
@@ -163,6 +162,7 @@ export default {
             }).then ( () => {
                 let screen = parseInt(this.screen.toString());
                 this.storeLocally([]);
+                this.$emit('loading', false)
 
                 
             });

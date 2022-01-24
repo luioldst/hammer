@@ -107,8 +107,11 @@ export default {
 
         },
         getCMSData () {
+            this.$emit('loading', true)
             $http.instance.get('/v1/router/history/').then ( response => {
-                this.history = response.data
+                this.history = response.data;
+                this.$emit('loading', false)
+                
             } )
         },
 
@@ -128,7 +131,11 @@ export default {
                     rating_symptom: item.rating_symptom,
                     history_symptom: item.history_symptom,
                 }
-            })
+            });
+
+            
+
+            this.$emit('loading', true)
 
             $http.instance.post(`/v2/self-assessment-report-choices/`, [...data], {
                 headers: {
@@ -140,6 +147,7 @@ export default {
 
                 let screen = parseInt(this.screen.toString()) + 1;
                 this.updateScreen(screen, false);
+                this.$emit('loading', false)
             });
         },
 

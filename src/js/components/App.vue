@@ -1,6 +1,7 @@
 <template>
     <div class="app">
 
+
         <template v-if="page == 'free-visit'">
             <free-visit></free-visit>
         </template>
@@ -75,7 +76,7 @@ export default {
             if (window.location.href.indexOf('recommendation') !== -1) {
                 page = 'recommendation'
             } else if (window.location.href.indexOf('hormone-assessment') !== -1) {
-                page = 'assessment'
+                page = 'assessment';
             } else {
                 page = 'free-visit'
             }

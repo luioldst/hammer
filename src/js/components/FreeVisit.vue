@@ -1,5 +1,8 @@
 <template>
     <div data-page="imbalances">
+        <div class="loader" v-if="is_loading">
+            <img src="https://uploads-ssl.webflow.com/6172279814cf5440b9aec966/61ee7ec5802e1c11dc78e81b_loader.gif">
+        </div>
         <div v-for="(question, index) in questions"
             :key="question.id">
          <free-visit-symptoms-selection
@@ -11,6 +14,8 @@
                     title: question.titel,
                     body: question.question
                 }"
+                :is-loading="is_loading"
+                @loading="handleLoader"
                 @update-screen="handleUpdate"
                 @delete="deleteFromOriginal"
             ></free-visit-symptoms-selection>
@@ -20,6 +25,7 @@
                                         }"
                                         :screen="screen"
                                         v-if="screen == index && rating_screen"
+                                        @loading="handleLoader"
                                         @update-screen="handleUpdate"></free-visit-symptoms-rating>
 
         </div>
@@ -50,6 +56,7 @@ export default {
             screen : 0,
             selected: [],
             rating_screen: false,
+            is_loading: true
         }
     },
 
@@ -59,6 +66,10 @@ export default {
     },
 
     methods: {
+
+        handleLoader (args) {
+            this.is_loading = args;
+        },
 
         handleUpdate (args) {
             this.rating_screen = args.rating_screen;
@@ -80,20 +91,22 @@ export default {
             localStorage.setItem('fv_success', false);
 
             if (params['client']) {
-                let id = params['client'];
-                $http.instance.get(`/v2/patient-phone-login/${id}`).then ( response => {
+                $http.instance.get(`/v2/patient-phone-login/${params['client']}`).then ( response => {
                     this.token = response.data.access;
                     
                     this.getCMSData();
                 } );
             } else {
-                window.location.href = '/';
+                window.location.href="/";
             }
+
+            
 
             
         },
 
         getCMSData () {
+            this.is_loading = true;
             Promise.all([
                 this.getAnswers(),
                 this.getQuestions()
@@ -103,6 +116,7 @@ export default {
 
                 this.screen = 0
                 this.populateInitial();
+                this.is_loading = false;
             } )
         },
 
