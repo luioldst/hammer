@@ -162,9 +162,7 @@ export default {
             }).then ( () => {
                 let screen = parseInt(this.screen.toString());
                 this.storeLocally([]);
-                this.$emit('loading', false)
-
-                
+                this.$emit('loading', false);
             });
         },
 

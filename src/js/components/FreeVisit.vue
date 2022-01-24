@@ -76,13 +76,28 @@ export default {
             this.screen = args.screen;
 
             if (this.screen == this.questions.length) {
+                this.complete();
+                
+            }
+        },
 
+        complete () {
+
+            this.is_loading = true;
+
+            $http.instance.get(`/v2/self-assessment-report-choices/?completed=true`, [], {
+                headers: {
+                    Authorization: `Bearer ${this.token}`
+                }
+            }).then ( response => {
                 this.questions.forEach ( (item, index) => {
                     this.$store.commit('DELETE', `fv_${index}`);
-                } )
-                localStorage.setItem('fv_success', true);
-                window.location.href = '/success';
-            }
+                } );
+
+                this.is_loading = false;
+                // localStorage.setItem('fv_success', true);
+                // window.location.href = '/success';
+            } );
         },
 
         authenticate () {
