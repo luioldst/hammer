@@ -23,7 +23,7 @@
                         There is absolutely no reason for you to continue suffering with {{ symptoms.length ? listDown(symptoms) : '0' }} when you have the best evidence-based natural hormone therapy available to you.
                     </p>
 
-                    <a href="https://thrivelab.zohobookings.com/#/customer/4079544000000970272" target="_blank" class="link black-button black-button-black-hover">Book your free consultation now</a>
+                    <a :href="link" target="_blank" class="link black-button black-button-black-hover">Book your free consultation now</a>
                 </div>
             </div>
 
@@ -63,6 +63,16 @@ export default {
 
     mounted () {
         this.validateRoute();
+    },
+
+    computed: {
+        link () {
+            if (this.$store.state.gender == 'male') {
+                return `https://www.trythrivelab.com/men?source=${localStorage.getItem('first_visit_url')}`;
+            } else {
+                return `https://www.trythrivelab.com/women?source=${localStorage.getItem('first_visit_url')}`;
+            }
+        }
     },
 
     methods: {
