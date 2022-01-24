@@ -85,7 +85,7 @@ export default {
 
             this.is_loading = true;
 
-            $http.instance.get(`/v2/self-assessment-report-choices/?completed=true`, [], {
+            $http.instance.post(`/v2/self-assessment-report-choices/?completed=true`, [], {
                 headers: {
                     Authorization: `Bearer ${this.token}`
                 }
