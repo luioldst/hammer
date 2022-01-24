@@ -51,12 +51,12 @@ export default {
 
     mounted () {
         // this.redirectUSer();
-        alert('HERE!!!!');
+        // alert('HERE!!!!');
     },
 
     methods: {
         redirectUSer () {
-            if (localStorage.getItem('access') && !this.isRecommendationPage) {
+            if (localStorage.getItem('access') && this.page !== 'recommendation') {
                 let gender = localStorage.getItem('gender');
                 if (gender == 'male') {
                     window.location.href = `${location.protocol}//${location.hostname}/recommendation-mens`;
