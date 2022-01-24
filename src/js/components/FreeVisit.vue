@@ -95,8 +95,8 @@ export default {
                 } );
 
                 this.is_loading = false;
-                // localStorage.setItem('fv_success', true);
-                // window.location.href = '/success';
+                localStorage.setItem('fv_success', true);
+                window.location.href = '/success';
             } );
         },
 
