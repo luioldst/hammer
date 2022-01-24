@@ -51,6 +51,7 @@ export default {
 
     mounted () {
         // this.redirectUSer();
+        alert('HERE!!!!');
     },
 
     methods: {
