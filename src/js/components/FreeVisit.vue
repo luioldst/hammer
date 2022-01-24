@@ -1,5 +1,5 @@
 <template>
-    <div data-page="imbalances">
+    <div data-page="imbalances" style="min-height: 500px; position: relative;">
         <div class="loader" v-if="is_loading">
             <img src="https://uploads-ssl.webflow.com/6172279814cf5440b9aec966/61ee7ec5802e1c11dc78e81b_loader.gif">
         </div>
