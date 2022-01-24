@@ -50,7 +50,7 @@
 export default {
 
     mounted () {
-        this.redirectUSer();
+        // this.redirectUSer();
     },
 
     methods: {
