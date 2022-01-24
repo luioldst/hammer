@@ -67,7 +67,7 @@ export default {
 
     computed: {
         link () {
-            if (this.$store.state.gender == 'male') {
+            if (localStorage.getItem('gender') == 'male') {
                 return `https://www.trythrivelab.com/men?source=${localStorage.getItem('first_visit_url')}`;
             } else {
                 return `https://www.trythrivelab.com/women?source=${localStorage.getItem('first_visit_url')}`;
