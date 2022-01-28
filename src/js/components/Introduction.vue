@@ -53,6 +53,19 @@
     </div>
 
 
+    <div id="modalExistingAssessment" v-if="logged_in" style="position: fixed; display: flex; left: 0;" class="modal-assessment">
+        <div class="modal-content">
+
+            <div class="modal-body" style="padding-top: 45px; padding-bottom: 45px;">
+                <h1 class="heading-13" style="padding-bottom: 30px;">You have already completed a self assessment</h1>
+
+                <p style="font-size: 20px; line-height: 30px;">Would you like to <a style="color: #000" @click="redirectExisting('recommendation')" href="#">view your recommendations</a> or <a href="#" @click="redirectExisting('free-visit')" style="color: #000">start a new self assessment</a>?</p>
+
+            </div>
+        </div>
+    </div>
+
+
     
 
 </div>
@@ -61,11 +74,17 @@
 <script>
 const _ = require('lodash');
 import $http from './../api.service';
+import axios from 'axios';
+
+import { redirectMixin } from './../redirect.mixin'
 
 const GENDER_DEFAULT = '--Gender--';
 const MPA_DEFAULT = 'Closest Metro';
 
 export default {
+
+    mixins: [ redirectMixin ],
+
     data () {
         return {
             name: '',
@@ -153,7 +172,7 @@ export default {
                 valid = false;
             }
 
-            valid && this.createProfile();
+            valid && this.login();
             
         },
 
