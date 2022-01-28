@@ -84,7 +84,10 @@ export default {
                 page = 'free-visit'
             }
 
+            console.log(page);
+
             return page;
+            
         }
     },
 
