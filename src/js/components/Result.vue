@@ -42,9 +42,9 @@ export default {
         redirectUSer () {
             let gender = localStorage.getItem('gender');
             if (gender == 'male') {
-                window.location.href = `${location.protocol}//${location.hostname}/recommendation-mens`;
+                window.location.href = `/recommendation-mens`;
             } else {
-                window.location.href = `${location.protocol}//${location.hostname}/recommendation-womens`;
+                window.location.href = `}/recommendation-womens`;
             }
         }
     }

@@ -31,12 +31,9 @@ export const redirectMixin = {
             axios.get(`${$http.loggedInUrl}/v1/patient-profile/`, {
                 headers: { Authorization: `Bearer ${localStorage.getItem('access')}` }
             }).then ( response => {
-                
                 localStorage.setItem('gender', response.data[0].gender);
                 localStorage.setItem('phone', response.data[0].phone.phone);
-                localStorage.setItem('xx', response.data[0].user_id);
-
-                
+                localStorage.setItem('xx', response.data[0].user_id);    
             })
 
         },
@@ -52,7 +49,7 @@ export const redirectMixin = {
                     data: 'result'
                 });
                 localStorage.setItem('assessment', 'done');
-                window.location.href = `https://www.thrivelab.com/recommendation-${gender == 'male' ? 'mens' : 'womens'}`;
+                window.location.href = `/recommendation-${gender == 'male' ? 'mens' : 'womens'}`;
             }
 
         }
