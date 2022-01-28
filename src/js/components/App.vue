@@ -1,5 +1,6 @@
 <template>
     <div class="app">
+        
 
 
         <template v-if="page == 'free-visit'">
@@ -49,9 +50,10 @@
 <script>
 export default {
 
-    mounted () {
+    created () {
         // this.redirectUSer();
-        // alert('HERE!!!!');
+
+
     },
 
     methods: {
@@ -81,6 +83,8 @@ export default {
             } else {
                 page = 'free-visit'
             }
+
+            page = 'assessment';
 
             return page;
         }

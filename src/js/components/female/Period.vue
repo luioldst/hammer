@@ -28,6 +28,8 @@
         <div class="actions">
             <button class="link form-btn form-btn-back btn-wide" @click="updateScreen('birthday-female')">Back</button>
             <button class="link form-btn" @click="store">Next</button>
+
+            <p style="color: red; margin-top: 15px" v-if="$store.state.general_error" class="error">There has been an error processing your request.</p>
         </div>
 
         <custom-progress :progress="20"></custom-progress>
@@ -97,7 +99,9 @@ export default {
                     key: 'local',
                     data: this.$store.state.local
                 })
-            });
+            }).catch( error => {
+                this.$store.state.general_error = true;
+            } );
         },
 
         updateScreen (screen) {

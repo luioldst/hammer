@@ -22,6 +22,8 @@
         <div class="actions">
             <button class="link form-btn form-btn-back" @click="updateScreen('cancer')">Back</button>
             <button class="link form-btn btn-long" @click="store">Finish</button>
+
+            <p style="color: red; margin-top: 15px" v-if="$store.state.general_error" class="error">There has been an error processing your request.</p>
         </div>
     </div>
 </template>
@@ -75,7 +77,9 @@ export default {
                     key: 'screen',
                     data: 'contact-number-male'
                 });
-            });
+            }).catch( error => {
+                this.$store.state.general_form = true;
+            } );
         }
     }
 }

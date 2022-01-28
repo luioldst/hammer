@@ -23,6 +23,8 @@
         <div class="actions">
             <button v-if="screen > 0" @click="handlePrevious" class="link form-btn form-btn-back">Back</button>
             <button @click="store" class="link form-btn">Next</button>
+
+            <p style="color: red; margin-top: 15px" v-if="generalError" class="error">There has been an error processing your request.</p>
         </div>
     </div>
 </template>
@@ -55,6 +57,10 @@ export default {
         },
         token: {
             required: true
+        },
+        generalError: {
+            type: Boolean,
+            default: false
         }
     },
 

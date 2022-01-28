@@ -57,7 +57,9 @@ export default {
                 document.cookie = `${document.cookie}; access=${response.data.access}; email=${response.data.access}; refresh=${response.data.refresh}`
                 
                 
-            })
+            }).catch( error => {
+                this.$store.state.general_error = true;
+            } )
         }
         
     }

@@ -12,7 +12,8 @@ export default new Vuex.Store({
         username: '',
         user: {
             name: ''
-        }
+        },
+        general_error: false
     },
     plugins: [
         createPersistedState()

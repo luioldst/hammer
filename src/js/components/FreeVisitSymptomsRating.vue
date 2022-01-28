@@ -64,6 +64,8 @@
         <div class="actions">
             <button class="link form-btn form-btn-back" @click="handlePrevious()">Back</button>
             <button class="link form-btn btn-long" @click="validate">Next</button>
+
+            <p style="color: red; margin-top: 15px" v-if="generalError" class="error">There has been an error processing your request.</p>
         </div>
     </div>
 </template>
@@ -84,6 +86,10 @@ export default {
         screen: {
             type: Number,
             required: true
+        },
+        generalError: {
+            type: Boolean,
+            default: false
         }
     },
 
@@ -148,6 +154,8 @@ export default {
                 let screen = parseInt(this.screen.toString()) + 1;
                 this.updateScreen(screen, false);
                 this.$emit('loading', false)
+            }).catch ( error => {
+                this.$store.state.general_error = true;
             });
         },
 

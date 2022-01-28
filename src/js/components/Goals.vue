@@ -22,6 +22,7 @@
         <div class="actions">
             <button @click="updateScreen(previous)" class="link form-btn form-btn-back">Back</button>
             <button @click="store" class="link form-btn btn-long">Next</button>
+            <p style="color: red; margin-top: 15px" v-if="$store.state.general_error" class="error">There has been an error processing your request.</p>
         </div>
 
         <custom-progress :progress="$store.state.user.gender == 'male' ? 60 : 75"></custom-progress>
@@ -110,7 +111,9 @@ export default {
                 }
 
                 
-            })
+            }).catch ( error => {
+                this.$store.state.general_error = true;
+            } )
         }
         
     }

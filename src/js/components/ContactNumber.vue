@@ -22,6 +22,7 @@
             <button class="link form-btn" @click="validate">
                 Final Step
             </button>
+            <p style="color: red; margin-top: 15px" v-if="$store.state.general_error" class="error">There has been an error processing your request.</p>
         </div>
     </div>
 </template>
@@ -100,7 +101,9 @@ export default {
             
                 
                 this.updateScreen(this.next);
-            })
+            }).catch( error => {
+                this.$store.state.general_error = true;
+            } )
         },
 
         getPatientProfile () {

@@ -50,6 +50,8 @@
     <div class="actions">
         <button v-if="!sending" class="link form-btn btn-long" @click="validate">Next</button>
         <button v-else disabled class="link form-btn btn-long">Submitting...</button>
+
+        <p style="color: red; margin-top: 15px" v-if="$store.state.general_error" class="error">There has been an error processing your request.</p>
     </div>
 
 
@@ -177,6 +179,7 @@ export default {
         },
 
         createProfile () {
+            this.$store.state.general_error = false;
             $http.instance.post('/v1/fake-profile-create/', {
                 Cache_id: '',
                 MPA: this.MPA,
@@ -203,7 +206,9 @@ export default {
                 this.$store.commit('SET_LOCAL_DATA', {
                     key: 'user',
                     data: response.data.user_data
-                })
+                });
+
+                
             }).catch( error => {
 
                 let errors = error.response.data;
@@ -214,10 +219,17 @@ export default {
                     _.forEach(errors, (item, key) => {
 
                         if (key == 'user_fake_profile') {
-                            this.email_error = 'Email is not valid'
+                            this.email_error = 'Email is not valid';
+                            
                         }
                     })
+                };
+
+                if (error.response.status !== 400) {
+                    this.$store.state.general_error = true;
                 }
+
+                
             } )
         }
     }

@@ -15,6 +15,7 @@
                     body: question.question
                 }"
                 :is-loading="is_loading"
+                :general-error="$store.state.general_error"
                 @loading="handleLoader"
                 @update-screen="handleUpdate"
                 @delete="deleteFromOriginal"
@@ -23,6 +24,7 @@
                                         :texts="{
                                             title: question.titel
                                         }"
+                                        :general-error="$store.state.general_error"
                                         :screen="screen"
                                         v-if="screen == index && rating_screen"
                                         @loading="handleLoader"
@@ -97,6 +99,8 @@ export default {
                 this.is_loading = false;
                 localStorage.setItem('fv_success', true);
                 window.location.href = '/success';
+            } ).catch( error => {
+                this.$store.state.general = true;
             } );
         },
 
