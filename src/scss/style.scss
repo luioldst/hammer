@@ -588,10 +588,14 @@ label {
 
 @media screen and (max-width: 767px) {
 
+    .custom-column > div {
+        padding: 0;
+    }
+
 
     .custom-column.min-two-col > div {
         width: 50%;
-        padding: 0;
+        
 
         label {
             margin: 0 auto;
