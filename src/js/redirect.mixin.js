@@ -49,7 +49,16 @@ export const redirectMixin = {
                     data: 'result'
                 });
                 localStorage.setItem('assessment', 'done');
-                window.location.href = `/recommendation-${gender == 'male' ? 'mens' : 'womens'}`;
+
+                let url = '';
+
+                if (gender = 'male') {
+                    url = '/recommendation-mens'
+                } else {
+                    url = '/recommendation-womens'
+                }
+
+                window.location.href = url;
             }
 
         }
