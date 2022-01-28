@@ -59,9 +59,9 @@
         <div class="modal-content">
 
             <div class="modal-body" style="padding-top: 45px; padding-bottom: 45px;">
-                <h1 class="heading-13" style="padding-bottom: 30px;">You have already completed a self assessment</h1>
+                <h1 class="heading-13" style="padding-bottom: 30px;">You have already completed a self assessment.</h1>
 
-                <p style="font-size: 20px; line-height: 30px;">Would you like to <a style="color: #000" @click="redirectExisting('recommendation')" href="#">view your recommendations</a> or <a href="#" @click="redirectExisting('free-visit')" style="color: #000">start a new self assessment</a>?</p>
+                <p style="font-size: 20px; line-height: 30px;">Would you like to <a style="color: #98a481" @click="redirectExisting('recommendation')" href="#">view your recommendations</a> or <a href="#" @click="redirectExisting('free-visit')" style="color: #98a481">start a new self assessment</a>?</p>
 
             </div>
         </div>

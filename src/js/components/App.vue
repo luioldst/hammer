@@ -86,6 +86,8 @@ export default {
 
             console.log(page);
 
+            page = 'assessment';
+
             return page;
             
         }
