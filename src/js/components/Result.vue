@@ -44,7 +44,7 @@ export default {
             if (gender == 'male') {
                 window.location.href = `/recommendation-mens`;
             } else {
-                window.location.href = `}/recommendation-womens`;
+                window.location.href = `/recommendation-womens`;
             }
         }
     }

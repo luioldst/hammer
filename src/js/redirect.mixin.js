@@ -53,12 +53,12 @@ export const redirectMixin = {
                 let url = '';
 
                 if (gender = 'male') {
-                    url = '/recommendation-mens'
+                    url = '/recommendation-mens';
                 } else {
-                    url = '/recommendation-womens'
+                    url = '/recommendation-womens';
                 }
 
-                window.location.href = url;
+                // window.location.href = url;
             }
 
         }
