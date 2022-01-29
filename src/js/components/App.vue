@@ -84,10 +84,6 @@ export default {
                 page = 'free-visit'
             }
 
-            console.log(page);
-
-            page = 'assessment';
-
             return page;
             
         }
