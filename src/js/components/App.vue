@@ -75,7 +75,6 @@ export default {
     computed: {
         page () {
             let page = '';
-
             if (window.location.href.indexOf('recommendation') !== -1) {
                 page = 'recommendation'
             } else if (window.location.href.indexOf('hormone-assessment') !== -1) {
@@ -83,7 +82,6 @@ export default {
             } else {
                 page = 'free-visit'
             }
-
             return page;
             
         }
