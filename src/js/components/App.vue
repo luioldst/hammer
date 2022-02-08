@@ -83,8 +83,6 @@ export default {
                 page = 'free-visit'
             }
 
-            page = 'assessment';
-
             return page;
             
         }
