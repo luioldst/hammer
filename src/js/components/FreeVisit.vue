@@ -64,6 +64,7 @@ export default {
 
     mounted () {
         this.authenticate();
+        this.$store.state.general_error = false;
         
     },
 

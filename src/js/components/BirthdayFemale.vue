@@ -30,6 +30,7 @@ export default {
     this.url = `${location.protocol}//${location.host}`;
 
     this.startTimer();
+    this.$store.state.general_error = false;
   },
 
   methods: {

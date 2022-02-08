@@ -81,6 +81,10 @@ export default {
         }
     },
 
+    mounted () {
+        this.$store.state.general_error = false;
+    },
+
     watch: {
         selection (data) {
             data.length && this.parseRawSelection();
@@ -100,6 +104,7 @@ export default {
             return this.screen;
         }
     },
+    
 
     methods: {
 

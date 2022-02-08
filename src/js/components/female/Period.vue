@@ -76,6 +76,7 @@ export default {
 
     mounted () {
         let period = this.$store.state.local['period'];
+        this.$store.state.general_error = false;
 
         this.selected = period ? period : {};
     },

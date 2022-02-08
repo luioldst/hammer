@@ -61,6 +61,10 @@ export default {
         
     },
 
+    mounted () {
+        this.$store.state.general_error = false;
+    },  
+
     methods: {
 
         updateScreen (screen) {

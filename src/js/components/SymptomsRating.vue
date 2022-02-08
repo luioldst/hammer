@@ -80,6 +80,10 @@ export default {
         this.getCMSData();
     },
 
+    mounted () {
+        this.$store.state.general_error = false;
+    },
+
     computed: {
         previous () {
             let previous = this.urls.previous;

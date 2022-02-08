@@ -52,6 +52,10 @@ export default {
         
     },
 
+    mounted () {
+        this.$store.state.general_error = false;
+    },
+
     watch: {
         selection (data) {
             

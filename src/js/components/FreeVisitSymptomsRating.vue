@@ -102,6 +102,10 @@ export default {
         }
     },
 
+    mounted () {
+        this.$store.state.general_error = false;
+    },
+
     created () {
         this.symptoms = this.$store.state[`fv_${this.screen}`];
         this.getCMSData();

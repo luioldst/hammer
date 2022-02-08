@@ -41,6 +41,7 @@ export default {
 
     mounted () {    
         this.initDatepicker();
+        this.$store.state.general_error = false;
     },
     
     methods: {

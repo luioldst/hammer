@@ -309,6 +309,7 @@ label {
     & > div {
         padding-left: 15px;
         padding-right: 15px;
+        
     }
 }
 
@@ -589,7 +590,7 @@ label {
 @media screen and (max-width: 767px) {
 
     .custom-column.two-col > div {
-        padding: 0;
+        padding: 0 15px;
     }
 
 
@@ -609,6 +610,7 @@ label {
 
     .custom-column > div {
         width: 100%;
+        padding: 0 !important;
     }
 
     
@@ -669,5 +671,12 @@ label {
     img {
         z-index: 2;
         max-width: 25px;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    .custom-column > div {
+        width: 100%;
+        padding: 0 15px !important;
     }
 }
