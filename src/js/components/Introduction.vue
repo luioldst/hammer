@@ -187,7 +187,7 @@ export default {
                 gender: this.gender,
                 name: this.name,
                 user_fake_profile: this.email,
-                url: `${localStorage.getItem('first_visit_url')}&ref=${encodeURI(document.referrer)}`
+                url: `${localStorage.getItem('first_visit_url')}`
             }).then ( response => {
                 this.$store.commit('SET_LOCAL_DATA', {
                     key: 'screen',

@@ -51,15 +51,6 @@ export default {
         }
     },
 
-    watch: {
-        selection: {
-            deep: true,
-            handler: function (data) {
-                console.log('SELECTED', data)
-            }
-        }
-    },
-
     data () {
         return {
             selection_parsed: [],
