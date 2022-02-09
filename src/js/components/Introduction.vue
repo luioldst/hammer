@@ -173,9 +173,7 @@ export default {
                 this.terms_error = 'You must agree with the terms and conditions';
                 valid = false;
             }
-
             valid && this.login();
-            
         },
 
         createProfile () {
