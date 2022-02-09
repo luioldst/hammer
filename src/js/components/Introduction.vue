@@ -107,13 +107,18 @@ export default {
 
     created () {
         this.getCMSData();
+
+        window.addEventListener('offline', () => this.$store.state.general_error = false);
     },  
 
     methods: {
         getCMSData () {
+            this.$store.state.general_error = false;
             $http.instance.get('/v1/router/mpa/').then (response => {
                 this.MPA_selection = response.data;
                 // this.populateLocally();
+            }).catch(error => {
+                this.$store.state.general_error = true;
             });
 
             if (this.$store.state.username) {
@@ -209,12 +214,11 @@ export default {
                 
             }).catch( error => {
 
-                let errors = error.response.data;
-
+                this.$store.state.general_error = true;
                 
-
+                let errors = error['response'];
                 if (errors) {
-                    _.forEach(errors, (item, key) => {
+                    _.forEach(errors.data, (item, key) => {
 
                         if (key == 'user_fake_profile') {
                             this.email_error = 'Email is not valid';
@@ -222,10 +226,6 @@ export default {
                         }
                     })
                 };
-
-                if (error.response.status !== 400) {
-                    this.$store.state.general_error = true;
-                }
 
                 
             } )
