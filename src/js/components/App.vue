@@ -83,7 +83,8 @@ export default {
                 page = 'free-visit'
             }
 
-            return 'assessment';
+            // return 'assessment';
+            return page;
             
         }
     },
