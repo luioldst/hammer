@@ -46,6 +46,13 @@
         <label for="terms">I agree to the <a href="/terms" target="_blank">Terms and Conditions</a>, <a href="/privacy" target="_blank">Privacy Policy</a> and <a href="/telehealth" target="_blank">Telehealth Consent</a></label>
         <p style="color: red" v-if="terms_error">{{ terms_error }}</p>
     </div>
+
+    <p class="note" style="margin-top: 15px;">
+        
+        Please note: email addresses are immediately processed once entered.
+        
+    </p>
+
     </div>
     <div class="actions">
         <button v-if="!sending" class="link form-btn btn-long" @click="validate">Next</button>
@@ -223,6 +230,10 @@ export default {
                         if (key == 'user_fake_profile') {
                             this.email_error = 'Email is not valid';
                             
+                        }
+
+                        if (key == 'email' && item[0] == 'Email Already exists, Kindly login.') {
+                            this.email_error = 'This email is already associated with an account. Please send a message to our Live Chat Agent to get your self-assessment link.';
                         }
                     })
                 };

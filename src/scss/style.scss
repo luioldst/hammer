@@ -289,7 +289,7 @@ label {
 
   .form-container {
       max-width: 470px;
-      margin: 60px auto 60px;
+      margin: 60px auto 30px;
   }
 
   .form-container-inner {
@@ -679,4 +679,14 @@ label {
         width: 100%;
         padding: 0 15px !important;
     }
+}
+
+.text-center {
+    text-align: center;
+}
+
+.note {
+    text-align: center;
+    max-width: 400px;
+    margin: 0 auto;
 }
