@@ -47,11 +47,8 @@
         <p style="color: red" v-if="terms_error">{{ terms_error }}</p>
     </div>
 
-    <p class="note" style="margin-top: 15px;">
-        
-        Please note: email addresses are immediately processed once entered.
-        
-    </p>
+    <p class="note" style="margin-top: 15px;">Please note: email addresses are immediately processed once entered.
+    </p> 
 
     </div>
     <div class="actions">
