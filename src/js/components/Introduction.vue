@@ -230,12 +230,26 @@ export default {
                         }
 
                         if (key == 'email' && item[0] == 'Email Already exists, Kindly login.') {
-                            this.email_error = 'This email is already associated with an account. Please send a message to our Live Chat Agent to get your self-assessment link.';
+                            this.email_error = 'Your email is already registered in the system. Please check your email for your recurring self assessment link.';
+                            this.sendEmail()
                         }
                     })
                 };
 
                 
+            } )
+        },
+
+        sendEmail () {
+            axios.post(`https://ixn4rd4s84.execute-api.us-west-1.amazonaws.com/prod/email-recurring-self-assessment-link?em=${this.email}`,
+            {
+                headers: {
+                     'apikey': 'sbiJTHhrXq0clpgQ186SW5fGUK4oP2EN'
+                }
+            }).then ( response => {
+                return;
+            } ).catch( error => {
+                this.$store.state.general_error = true;
             } )
         }
     }
