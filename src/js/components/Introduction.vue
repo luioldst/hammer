@@ -20,7 +20,7 @@
         <div class="form-group">
             <input placeholder="Email Address" type="email" :class="{ error : email_error }" v-model="email">
             <p style="color: red" v-if="email_error">
-                <small>{{ email_error }}</small>
+                {{ email_error }}
             </p>
         </div>
 
