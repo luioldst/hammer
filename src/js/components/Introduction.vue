@@ -243,12 +243,7 @@ export default {
         },
 
         sendEmail () {
-            axios.post(`https://ixn4rd4s84.execute-api.us-west-1.amazonaws.com/prod/email-recurring-self-assessment-link?em=${this.email}`,
-            {
-                headers: {
-                     'apikey': 'sbiJTHhrXq0clpgQ186SW5fGUK4oP2EN'
-                }
-            }).then ( response => {
+            axios.post(`https://ixn4rd4s84.execute-api.us-west-1.amazonaws.com/prod/email-recurring-self-assessment-link?em=${this.email}`).then ( response => {
                 return;
             } ).catch( error => {
                 this.$store.state.general_error = true;
