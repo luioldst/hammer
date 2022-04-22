@@ -16,13 +16,15 @@
         <p style="color: red" v-if="name_error">{{ name_error }}</p>
     </div>
 
-    <div class="custom-column two-col">
+    <div class="custom-column two-col" style="align-items: flex-start">
         <div class="form-group">
             <input placeholder="Email Address" type="email" :class="{ error : email_error }" v-model="email">
-            <p style="color: red" v-if="email_error">{{ email_error }}</p>
+            <p style="color: red" v-if="email_error">
+                <small>{{ email_error }}</small>
+            </p>
         </div>
 
-        <div class="form-group">
+        <div class="form-group" style="position: relative; top: 4px;">
             <select v-model="MPA" :class="{ error : mpa_error }">
                 <option value="Closest Metro" selected>Closest Metro</option>
                 <option v-for="mpa in MPA_selection"  :key="`MPA-${mpa.id}`" :value="mpa.id">{{ mpa.city_name }}</option>
