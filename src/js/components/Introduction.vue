@@ -233,7 +233,8 @@ export default {
 
                         if (key == 'email' && item[0] == 'Email Already exists, Kindly login.') {
                             this.email_error = 'Your email is already registered in the system. Please check your email for your recurring self assessment link.';
-                            document.querySelector('.email-exists').style.display = 'block';
+                            document.querySelector('.email-exists').style.display = 'flex';
+                            this.clearOnModalClose();
                             this.sendEmail()
                         }
                     })
@@ -241,6 +242,16 @@ export default {
 
                 
             } )
+        },
+
+        clearOnModalClose () {
+            document.querySelector('.email-exists .link-7').addEventListener('click', () => {
+                this.email = '';
+                this.MPA = '';
+                this.gende = '';
+                this.name = '';
+                this.emai = '';
+            })
         },
 
         sendEmail () {
