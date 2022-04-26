@@ -232,7 +232,7 @@ export default {
                         }
 
                         if (key == 'email' && item[0] == 'Email Already exists, Kindly login.') {
-                            this.email_error = 'Your email is already registered in the system. Please check your email for your recurring self assessment link.';
+                            // this.email_error = 'Your email is already registered in the system. Please check your email for your recurring self assessment link.';
                             document.querySelector('.email-exists').style.display = 'flex';
                             this.clearOnModalClose();
                             this.sendEmail()
