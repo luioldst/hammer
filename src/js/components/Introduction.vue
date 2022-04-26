@@ -251,6 +251,8 @@ export default {
                 this.gende = '';
                 this.name = '';
                 this.emai = '';
+                this.email_error = '';
+                this.$store.state.general_error = false;
             })
         },
 
