@@ -16,13 +16,15 @@
         <p style="color: red" v-if="name_error">{{ name_error }}</p>
     </div>
 
-    <div class="custom-column two-col">
+    <div class="custom-column two-col" style="align-items: flex-start">
         <div class="form-group">
             <input placeholder="Email Address" type="email" :class="{ error : email_error }" v-model="email">
-            <p style="color: red" v-if="email_error">{{ email_error }}</p>
+            <p style="color: red" v-if="email_error">
+                {{ email_error }}
+            </p>
         </div>
 
-        <div class="form-group">
+        <div class="form-group" style="position: relative; top: 4px;">
             <select v-model="MPA" :class="{ error : mpa_error }">
                 <option value="Closest Metro" selected>Closest Metro</option>
                 <option v-for="mpa in MPA_selection"  :key="`MPA-${mpa.id}`" :value="mpa.id">{{ mpa.city_name }}</option>
@@ -230,12 +232,35 @@ export default {
                         }
 
                         if (key == 'email' && item[0] == 'Email Already exists, Kindly login.') {
-                            this.email_error = 'This email is already associated with an account. Please send a message to our Live Chat Agent to get your self-assessment link.';
+                            // this.email_error = 'Your email is already registered in the system. Please check your email for your recurring self assessment link.';
+                            document.querySelector('.email-exists').style.display = 'flex';
+                            this.clearOnModalClose();
+                            this.sendEmail()
                         }
                     })
                 };
 
                 
+            } )
+        },
+
+        clearOnModalClose () {
+            document.querySelector('.email-exists .link-7').addEventListener('click', () => {
+                this.email = '';
+                this.MPA = '';
+                this.gende = '';
+                this.name = '';
+                this.emai = '';
+                this.email_error = '';
+                this.$store.state.general_error = false;
+            })
+        },
+
+        sendEmail () {
+            axios.post(`https://ixn4rd4s84.execute-api.us-west-1.amazonaws.com/prod/email-recurring-self-assessment-link?em=${this.email}`).then ( response => {
+                return;
+            } ).catch( error => {
+                this.$store.state.general_error = true;
             } )
         }
     }
