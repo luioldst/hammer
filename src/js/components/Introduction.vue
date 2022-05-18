@@ -253,6 +253,7 @@ export default {
                 this.emai = '';
                 this.email_error = '';
                 this.$store.state.general_error = false;
+
             })
         },
 
@@ -260,6 +261,7 @@ export default {
             axios.post(`https://ixn4rd4s84.execute-api.us-west-1.amazonaws.com/prod/email-recurring-self-assessment-link?em=${this.email}`).then ( response => {
                 return;
             } ).catch( error => {
+                console.log(error);
                 this.$store.state.general_error = true;
             } )
         }
