@@ -92,7 +92,19 @@ export default {
         },
 
         listDown (arr = []) {
-            return new Intl.ListFormat('en').format(arr);
+
+            // let symptomsString = '';
+
+            // arr.forEach ( (item, index) => {
+                
+            //     let
+
+            //     symptomsString = symptomsString + 'and'
+            // });
+
+            return arr.join(' and ')
+
+            // return new Intl.ListFormat('en').format(arr);
         },
 
         getUser () {
