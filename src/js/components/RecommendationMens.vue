@@ -63,9 +63,11 @@ export default {
     computed: {
         link () {
             if (localStorage.getItem('gender') == 'male') {
-                return `https://www.trythrivelab.com/men?source=${localStorage.getItem('first_visit_url')}`;
+                // return `https://www.trythrivelab.com/men?source=${localStorage.getItem('first_visit_url')}`;
+                return `https//booking.thrivelab.com?gender=male`
             } else {
-                return `https://www.trythrivelab.com/women?source=${localStorage.getItem('first_visit_url')}`;
+                // return `https://www.trythrivelab.com/women?source=${localStorage.getItem('first_visit_url')}`;
+                return `https//booking.thrivelab.com?gender=female`
             }
         }
     },
