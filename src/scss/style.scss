@@ -805,6 +805,9 @@ h1,
     text-transform: lowercase;
 }
 
+
+
+
 .progress-recommendation {
     background: #FFF;
     padding: 30px !important;
@@ -816,7 +819,8 @@ h1,
         // font-family: Sackersgothicstd, sans-serif;
         font-size: 17px;
         color: #725E54;
-        line-height: 21px;
+        line-height: 24px;
+        font-family: 'Abcdiatype';
     }
 }
 
@@ -827,6 +831,12 @@ h1,
 
     p {
         margin-bottom: 30px;
+        color: #725E54;
+    }
+
+    .link.black-button {
+        background: transparent linear-gradient(91deg, #D8F2F2 0%, #D6E2C6 100%) 0% 0% no-repeat padding-box;
+        box-shadow: 0px 3px 4px #0000000F;
     }
 }
 

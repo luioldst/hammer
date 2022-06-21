@@ -13,18 +13,23 @@
 
                     <p>Your body needs help - to not only combat the symptoms you are experiencing, but to achieve your health goals. There is no reason for you to continue to suffer when evidence-based, natural hormone therapy is easily accessible from Thrivelab.
                     </p>
-                    <a :href="link" target="_blank" class="link black-button black-button-black-hover">Book your free consultation now</a>
+                    <a :href="link" target="_blank" class="link black-button black-button-black-hover">BOOK YOUR $45 CONSULTATION</a>
                 </div>
             </div>
 
             <div style="max-width: 600px;" class="progress-recommendation">
-                <p>
+                <p v-if="gender == 'male'">
                     Probability of testosterone and hormone imbalance that will negatively impact achieving your health goals.
+                </p>
+
+                <p v-else>
+                    Probability of hormone imbalances which contribute to your symptoms
                 </p>
 
                 <div v-for="(rating, key) in ratings" :key="key" class="ratings-recommendation-bar">
                     <p class="bar__title">{{ key }}</p>
-                    <div :style="{ width: `${ rating < 10 ? rating*10 : 99 }%` }"></div>
+                    <div :style="{ width: `${ rating < 10 ? rating*10 : 99 }%`,
+                        background: getBackground(rating) }"></div>
 
                     <p class="bar__percentage">{{ rating < 10 ? rating*10 : 99 }}%</p>
                 </div>
@@ -66,6 +71,17 @@ export default {
     },
 
     methods: {
+
+        getBackground (rating) {
+            let background = '#FFC15F';
+            if (rating > 5) {
+                background = '#FC6E6E';
+            } else if (rating == 1) {
+                background = '#8BF0B4'
+            }
+
+            return background;
+        },
 
         validateRoute () {
             if (!localStorage.getItem('access')) {
