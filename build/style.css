@@ -795,6 +795,12 @@ h1,
   display: block;
   background-repeat: no-repeat;
 }
+@media screen and (max-width: 991px) {
+  .text-recommendation .link.black-button:before {
+    height: 11px;
+    top: 6px;
+  }
+}
 
 .recommendation-mens {
   background: #f7f2e8;
