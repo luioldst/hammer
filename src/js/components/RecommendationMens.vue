@@ -2,34 +2,24 @@
     <div class="recommendation-mens" style="max-width: 1920px">
 
         
-        <div class="custom-column two-col">
+        <div class="custom-column two-col" style="align-items: flex-start">
             <div style="max-width: 600px;">
                 <p class="h1-md heading-1">Hi {{ user.name }},</p>
 
                 <div class="text-recommendation">
                     <p>
-                        We've analyzed your self-assessment responses and your personal health goals.
+                        We've analyzed your self-assessment responses and your personal health goals. It appears that {{ top_three.length ? `your ${listDown(top_three)} levels are` : 'none is' }}  significantly compromised.
                     </p>
 
-                    <p class="text-lowercase">
-                        It appears that {{ top_three.length ? `your ${listDown(top_three)} levels are` : 'none is' }}  significantly compromised.
+                    <p>Your body needs help - to not only combat the symptoms you are experiencing, but to achieve your health goals. There is no reason for you to continue to suffer when evidence-based, natural hormone therapy is easily accessible from Thrivelab.
                     </p>
-
-                    <p v-if="gender == 'male'">
-                        Based on your stated goals of <span class="text-lowercase"> {{ goals.length ? listDown(goals) : '0' }}</span> we can guide you toward an evidence-based, natural solution that's customized to your needs.
-                    </p>
-
-                    <p v-else>
-                        There is absolutely no reason for you to continue suffering with {{ symptoms.length ? listDown(symptoms) : '0' }} when you have the best evidence-based natural hormone therapy available to you.
-                    </p>
-
                     <a :href="link" target="_blank" class="link black-button black-button-black-hover">Book your free consultation now</a>
                 </div>
             </div>
 
             <div style="max-width: 600px;" class="progress-recommendation">
                 <p>
-                    PROBABILITY OF TESTOSTERONE AND HORMONE IMBALANCE THAT WILL NEGATIVELY IMPACT ACHIEVING YOUR HEALTH GOALS
+                    Probability of testosterone and hormone imbalance that will negatively impact achieving your health goals.
                 </p>
 
                 <div v-for="(rating, key) in ratings" :key="key" class="ratings-recommendation-bar">
