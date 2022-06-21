@@ -835,8 +835,21 @@ h1,
     }
 
     .link.black-button {
-        background: transparent linear-gradient(91deg, #D8F2F2 0%, #D6E2C6 100%) 0% 0% no-repeat padding-box;
+        background: transparent linear-gradient(91deg, #D8F2F2 0%, #D6E2C6 100%) 0% 0% no-repeat padding-box !important;
         box-shadow: 0px 3px 4px #0000000F;
+        position: relative;
+
+        &:before {
+            content: '';
+            position: absolute;
+            width: 40px;
+            height: 100%;
+            background-image: url('https: //assets.website-files.com/6172279814cf5440b9aec966/6183bd85add1c1207f2b7dcb_icon-arrow-right.svg');
+            background-position: center;
+            background-size: contain;
+            left: 0;
+            display: block;
+        }
     }
 }
 
