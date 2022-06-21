@@ -909,10 +909,14 @@ h1,
 
         .bar__title {
             font-size: 14px;
-            text-transform: uppercase;
-            font-family: Sackersgothicstd, sans-serif;
+            text-transform: capitalize;
+            font-family: Abcdiatype, sans-serif;
             position: relative;
             z-index: 2;
+            padding-right: 15px;
+            padding: 5px 15px 5px 0;
+            line-height: 1.5;
+            position: relative;
         }
 
         .bar__percentage {
@@ -920,7 +924,7 @@ h1,
             position: relative;
             z-index: 2;
             font-size: 25px;
-            font-family: 'Latinotype jazmin alt', sans-serif;
+            font-family: Abcdiatype, sans-serif;
 
         }
 
