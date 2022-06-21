@@ -2,8 +2,8 @@
     <div class="recommendation-mens" style="max-width: 1920px">
 
         
-        <div class="custom-column two-col" style="align-items: flex-start">
-            <div style="max-width: 600px;">
+        <div class="custom-column two-col" style="align-items: center">
+            <div style="max-width: 600px;" class="text-recommendation-wrapper">
                 <p class="h1-md heading-1">Hi {{ user.name }},</p>
 
                 <div class="text-recommendation">
